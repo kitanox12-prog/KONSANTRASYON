@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="orman">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<title>KONSANTRASYON</title>
+<style>
+/* KONSANTRASYON — 06_themes/themes.css
+   Theme tokens via [data-theme="orman" | "gece" | "kagit"] on <html> or <body>.
+   All colours checked with contrast.js (WCAG AA). No external fonts/assets. */
+
+:root {
+  /* Typography: system stacks only (Turkish glyphs ğ ş ı İ ö ü ç supported by all) */
+  --font-ui: "Segoe UI", system-ui, -apple-system, "Roboto", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-round: "Segoe UI Variable Display", "SF Pro Rounded", ui-rounded, "Nunito", "Segoe UI", system-ui, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-num: ui-monospace, "SF Mono", "Cascadia Mono", "Consolas", "Roboto Mono", monospace;
+
+  --fs-xs: 0.8125rem;  /* 13px – captions only */
+  --fs-s: 0.9375rem;   /* 15px */
+  --fs-m: 1.0625rem;   /* 17px – body default (phone) */
+  --fs-l: 1.375rem;    /* 22px */
+  --fs-xl: 1.875rem;   /* 30px */
+  --fs-xxl: 2.75rem;   /* 44px – timer digits */
+  --lh: 1.5;
+
+  --radius-s: 10px;
+  --radius-m: 16px;
+  --radius-l: 24px;
+  --radius-pill: 999px;
+  --gap: 16px;
+  --tap: 48px;               /* minimum touch target */
+  --focus-ring: 3px;
+
+  --dur-fast: 140ms;
+  --dur-med: 260ms;
+  --dur-slow: 600ms;
+  --ease: cubic-bezier(.2,.8,.2,1);
+
+  /* default theme = orman */
+  color-scheme: light;
+}
+
+/* ---------- 1. ORMAN ŞAFAĞI / Forest Dawn (light, calm green) ---------- */
+:root, [data-theme="orman"] {
+  color-scheme: light;
+  --bg: #F3F0E6;
+  --surface: #FFFDF7;
+  --surface-2: #E9E6D9;
+  --text: #22322A;
+  --muted: #56675C;
+  --accent: #2C6E50;
+  --on-accent: #FFFFFF;
+  --accent-soft: #D7E8DD;
+  --success: #2B7148;
+  --success-soft: #DCEFE2;
+  --warn: #96570B;
+  --warn-soft: #F6E7CF;
+  --target: #1F64A8;       /* blue  – always paired with a shape cue */
+  --distractor: #C2601E;   /* orange – CVD-safe vs blue */
+  --line: #D5D1C2;
+  --shadow: 0 2px 10px rgba(34, 50, 42, .08);
+  --font-display: var(--font-round);
+  --bg-art:
+    radial-gradient(120% 60% at 50% 0%, #FBE9CF 0%, rgba(251,233,207,0) 60%),
+    radial-gradient(90% 50% at 10% 100%, #DDE8D8 0%, rgba(221,232,216,0) 70%),
+    linear-gradient(180deg, #F7F1E3 0%, #F3F0E6 100%);
+}
+
+/* ---------- 2. GECE OKYANUSU / Night Ocean (dark, low-glare) ---------- */
+[data-theme="gece"] {
+  color-scheme: dark;
+  --bg: #0F1B2D;
+  --surface: #18283F;
+  --surface-2: #213452;
+  --text: #EAF0F8;
+  --muted: #A6B6CC;
+  --accent: #86CBF5;
+  --on-accent: #0F1B2D;
+  --accent-soft: #1F3B5A;
+  --success: #74D6A8;
+  --success-soft: #1A3B3A;
+  --warn: #F3BC85;
+  --warn-soft: #3A3030;
+  --target: #FFD36B;       /* warm yellow */
+  --distractor: #8C9EFF;   /* periwinkle */
+  --line: #2A3F5E;
+  --shadow: 0 2px 14px rgba(0, 0, 0, .35);
+  --font-display: var(--font-round);
+  --bg-art:
+    radial-gradient(70% 40% at 80% 8%, rgba(134,203,245,.16) 0%, rgba(134,203,245,0) 70%),
+    radial-gradient(120% 50% at 50% 110%, #12324A 0%, rgba(18,50,74,0) 70%),
+    linear-gradient(180deg, #0B1524 0%, #0F1B2D 55%, #10233A 100%);
+}
+
+/* ---------- 3. SICAK KAĞIT / Warm Paper (cozy, low saturation) ---------- */
+[data-theme="kagit"] {
+  color-scheme: light;
+  --bg: #F8F1E4;
+  --surface: #FFFAF1;
+  --surface-2: #EFE5D3;
+  --text: #3A2D24;
+  --muted: #6B5A4D;
+  --accent: #A84A33;
+  --on-accent: #FFFFFF;
+  --accent-soft: #F3DDD3;
+  --success: #356F4C;
+  --success-soft: #DDEBDD;
+  --warn: #94580E;
+  --warn-soft: #F4E3C8;
+  --target: #275A9E;
+  --distractor: #BD6F22;
+  --line: #E0D3BE;
+  --shadow: 0 2px 8px rgba(58, 45, 36, .10);
+  --font-display: var(--font-serif);
+  --bg-art:
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,.55) 0 2px, transparent 3px) 0 0 / 38px 38px,
+    radial-gradient(circle at 70% 60%, rgba(168,74,51,.05) 0 1.5px, transparent 2.5px) 0 0 / 27px 27px,
+    linear-gradient(180deg, #FAF4E8 0%, #F8F1E4 100%);
+}
+
+/* Auto: follow OS dark mode if the app sets data-theme="auto" */
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] {
+    color-scheme: dark;
+    --bg: #0F1B2D; --surface: #18283F; --surface-2: #213452; --text: #EAF0F8; --muted: #A6B6CC;
+    --accent: #86CBF5; --on-accent: #0F1B2D; --accent-soft: #1F3B5A; --success: #74D6A8; --success-soft: #1A3B3A;
+    --warn: #F3BC85; --warn-soft: #3A3030; --target: #FFD36B; --distractor: #8C9EFF; --line: #2A3F5E;
+    --shadow: 0 2px 14px rgba(0,0,0,.35); --font-display: var(--font-round);
+    --bg-art: linear-gradient(180deg, #0B1524 0%, #0F1B2D 100%);
+  }
+}
+
+/* ---------- Base usage helpers (optional; app may override) ---------- */
+.k-root {
+  background: var(--bg-art), var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font: var(--fs-m)/var(--lh) var(--font-ui);
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+}
+.k-display { font-family: var(--font-display); font-weight: 650; letter-spacing: -.01em; }
+.k-muted { color: var(--muted); }
+.k-num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+
+.k-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.k-btn {
+  min-height: var(--tap); min-width: var(--tap);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 0 20px;
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  background: var(--accent); color: var(--on-accent);
+  font: 600 var(--fs-m)/1 var(--font-ui);
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease), filter var(--dur-fast);
+}
+.k-btn:hover { filter: brightness(1.06); }
+.k-btn:active { transform: scale(.97); }
+.k-btn--ghost { background: transparent; color: var(--text); border-color: var(--line); }
+.k-btn--soft { background: var(--accent-soft); color: var(--text); }
+.k-btn svg { width: 22px; height: 22px; }
+
+:focus-visible { outline: var(--focus-ring) solid var(--accent); outline-offset: 3px; }
+
+.k-icon { width: 24px; height: 24px; color: currentColor; flex: none; }
+
+/* Feedback chips: colour + icon + text, never colour alone */
+.k-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px;
+  border-radius: var(--radius-pill); font-size: var(--fs-s); font-weight: 600; }
+.k-chip--ok   { background: var(--success-soft); color: var(--success); }
+.k-chip--warn { background: var(--warn-soft);    color: var(--warn); }
+
+/* Game stimuli: target = filled circle, distractor = rounded square (shape + colour) */
+.k-target     { background: var(--target);     border-radius: 50%; }
+.k-distractor { background: var(--distractor); border-radius: 22%; }
+.k-target, .k-distractor { aspect-ratio: 1; flex: none; } /* review fix: flex layouts squeezed the circle into an oval */
+
+/* Gentle motion primitives */
+@keyframes k-float  { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-4px) } }
+@keyframes k-pop    { 0% { transform: scale(.9); opacity: 0 } 100% { transform: scale(1); opacity: 1 } }
+@keyframes k-breathe{ 0%,100% { transform: scale(.82) } 50% { transform: scale(1) } }
+@keyframes k-twinkle{ 0%,100% { opacity: .35 } 50% { opacity: .9 } }
+.k-float  { animation: k-float 4s var(--ease) infinite; }
+.k-pop    { animation: k-pop var(--dur-med) var(--ease) both; }
+.k-twinkle{ animation: k-twinkle 5s ease-in-out infinite; }
+
+/* Reduced motion: keep state changes, drop movement */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* App-level override (settings toggle sets data-motion="reduce" on <html>) */
+[data-motion="reduce"] *, [data-motion="reduce"] *::before, [data-motion="reduce"] *::after {
+  animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important;
+}
+
+/* Higher contrast when requested */
+@media (prefers-contrast: more) {
+  :root, [data-theme] { --muted: var(--text); --line: var(--muted); }
+  .k-card { border-width: 2px; }
+}
+@media (forced-colors: active) {
+  .k-btn { border-color: ButtonText; }
+  .k-target, .k-distractor { forced-color-adjust: none; }
+}
+
+</style>
+<style>
+/* KONSANTRASYON app styles (on top of 06_themes/themes.css) */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; touch-action: manipulation; overflow-x: hidden; }
+[hidden] { display: none !important; }
+h1, h2, h3, p { margin: 0; }
+button, input, textarea { font: inherit; color: inherit; }
+button { touch-action: manipulation; }
+a { color: var(--accent); }
+
+.bgart { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.bgart svg { width: 100%; height: 100%; display: block; }
+@media (min-width: 700px) { .bgart { display: none; } }
+
+.app {
+  max-width: 560px; margin: 0 auto;
+  min-height: 100vh; min-height: 100dvh;
+  padding: calc(env(safe-area-inset-top) + 10px) calc(env(safe-area-inset-right) + 16px)
+           calc(env(safe-area-inset-bottom) + 28px) calc(env(safe-area-inset-left) + 16px);
+}
+section { display: flex; flex-direction: column; gap: var(--gap); }
+
+/* bars */
+.bar { display: flex; align-items: center; gap: 8px; min-height: 56px; }
+.bar h1 { font-size: var(--fs-l); flex: 1; }
+.appname { font-size: var(--fs-l); flex: 1; letter-spacing: .04em; }
+.iconbtn {
+  width: var(--tap); height: var(--tap); display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--text);
+  cursor: pointer; padding: 0; text-decoration: none; flex: none;
+}
+.sysbar { display: flex; gap: 8px; align-items: center; margin-bottom: 8px;
+  background: var(--warn-soft); color: var(--warn); border-radius: var(--radius-m); padding: 8px 8px 8px 14px; font-size: var(--fs-s); }
+.sysbar p { flex: 1; }
+.sysbar .iconbtn { background: transparent; border: none; color: inherit; }
+
+/* text bits */
+.hint { font-size: var(--fs-s); color: var(--muted); }
+.small { font-size: var(--fs-xs); color: var(--muted); }
+.lead { color: var(--muted); }
+.big { font-size: var(--fs-xl); }
+.center { text-align: center; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.row.end { justify-content: flex-end; }
+.stack { display: flex; flex-direction: column; gap: 10px; }
+.k-card h2 { font-size: var(--fs-l); margin-bottom: 8px; }
+.k-card > * + * { margin-top: 8px; }
+.k-btn { text-decoration: none; text-align: center; line-height: 1.2; padding: 10px 20px; }
+.k-btn:disabled { opacity: .45; cursor: default; }
+.k-btn.wide { width: 100%; }
+.k-btn--ghost.k-btn, .k-btn--soft.k-btn { font-weight: 600; }
+.mascot { width: 112px; height: 112px; margin: 0 auto; }
+.mascot svg { width: 100%; height: 100%; display: block; }
+.mascot.sm { width: 84px; height: 84px; }
+
+/* home */
+.greet h1 { font-size: var(--fs-xl); }
+.homehead { display: flex; align-items: center; gap: 14px; }
+.homehead .mascot { margin: 0; flex: none; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tile {
+  display: flex; flex-direction: column; gap: 6px; min-height: 132px; padding: 16px;
+  text-decoration: none; color: var(--text);
+}
+.tile .k-icon { width: 30px; height: 30px; color: var(--accent); }
+.tile b { font-size: var(--fs-l); font-family: var(--font-display); }
+.tile span { font-size: var(--fs-s); color: var(--muted); }
+.links { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.tlink { min-height: var(--tap); display: inline-flex; align-items: center; padding: 0 12px; color: var(--accent); font-weight: 600; }
+.banner { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); background: var(--accent-soft); border-radius: var(--radius-m); padding: 12px 16px; min-height: var(--tap); font-weight: 600; }
+.ded { background: var(--accent-soft); }
+.ded p { font-family: var(--font-display); font-size: var(--fs-l); }
+
+/* lists of choice cards */
+.choice {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius-m);
+  padding: 12px 16px; min-height: 56px; cursor: pointer;
+}
+.choice[aria-checked="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.choice .sub { display: block; font-size: var(--fs-s); color: var(--muted); }
+.choice .tick { margin-left: auto; color: var(--accent); visibility: hidden; }
+.choice[aria-checked="true"] .tick { visibility: visible; }
+.gamecard { display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--text); }
+.gamecard b { font-size: var(--fs-l); font-family: var(--font-display); }
+
+/* segmented control */
+.seg { display: flex; gap: 6px; background: var(--surface-2); border-radius: var(--radius-pill); padding: 4px; }
+.seg button {
+  flex: 1; min-height: var(--tap); border: 0; border-radius: var(--radius-pill); background: transparent;
+  font-weight: 600; cursor: pointer; padding: 4px 8px; line-height: 1.15; color: var(--text);
+}
+.seg button[aria-checked="true"] { background: var(--accent); color: var(--on-accent); }
+.lbl { font-weight: 600; display: block; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+
+/* switch row (button role=switch / role=checkbox) */
+.swrow {
+  display: flex; align-items: center; gap: 12px; width: 100%; min-height: var(--tap); padding: 6px 0;
+  background: none; border: 0; cursor: pointer; text-align: left; font-weight: 600;
+}
+.swrow > span:first-child { flex: 1; }
+.sw { position: relative; width: 52px; height: 32px; border-radius: 16px; background: var(--line); flex: none; transition: background var(--dur-fast); }
+.sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: var(--surface); box-shadow: var(--shadow); transition: transform var(--dur-fast) var(--ease); }
+[aria-checked="true"] > .sw { background: var(--accent); }
+[aria-checked="true"] > .sw::after { transform: translateX(20px); }
+.box { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--muted); flex: none; display: inline-flex; align-items: center; justify-content: center; color: var(--on-accent); }
+[aria-checked="true"] > .box { background: var(--accent); border-color: var(--accent); }
+.swrow.cb { font-weight: 500; }
+
+/* range: 44px tall hit area */
+input[type="range"].range { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; background: transparent; margin: 0; cursor: pointer; }
+.range::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: var(--line); }
+.range::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -11px; border-radius: 50%; background: var(--accent); border: 3px solid var(--surface); box-shadow: var(--shadow); }
+.range::-moz-range-track { height: 6px; border-radius: 3px; background: var(--line); }
+.range::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); border: 3px solid var(--surface); }
+
+/* inputs */
+.inp, textarea.inp {
+  width: 100%; min-height: var(--tap); padding: 10px 14px; border-radius: var(--radius-m);
+  border: 2px solid var(--line); background: var(--surface); font-size: 16px; /* 16px: no iOS zoom */
+}
+textarea.inp { min-height: 88px; resize: vertical; }
+.inp:focus { border-color: var(--accent); outline: none; }
+
+/* games */
+.ex { display: flex; gap: 16px; align-items: center; justify-content: center; padding: 6px 0; }
+.ex .k-target, .ex .k-distractor { width: 44px; }
+.ex .k-icon { color: var(--accent); }
+.play { position: relative; display: flex; flex-direction: column; gap: 10px; }
+.progress { height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; flex: 1; }
+.progress i { display: block; height: 100%; background: var(--accent); width: 0; }
+.area {
+  position: relative; height: 58vh; height: 58dvh; min-height: 300px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  cursor: pointer; padding: 16px;
+}
+.stim { width: 112px; transition: transform 60ms linear; }
+@media (min-width: 700px) { .stim { width: 140px; } }
+.stim.off { visibility: hidden; }
+.stim.hit { transform: scale(.9); }
+[data-motion="reduce"] .stim.hit { transform: none; outline: 4px solid var(--text); outline-offset: 4px; }
+.feedback { min-height: 34px; display: flex; justify-content: center; }
+.hcard { width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-l); border: 4px solid var(--line); background: var(--surface); color: var(--accent); }
+.hcard.ok { border-color: var(--success); }
+.same { width: 100%; min-height: 64px; font-size: var(--fs-l); }
+.zt { font-size: var(--fs-xl); font-family: var(--font-display); text-align: center; }
+.zbtn { min-width: 180px; min-height: 64px; font-size: var(--fs-l); }
+.overlay {
+  position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; gap: 14px; align-items: center; justify-content: center;
+  background: var(--bg); border-radius: var(--radius-l);
+}
+.ready { font-size: var(--fs-xl); font-family: var(--font-display); color: var(--muted); }
+.res-main { font-size: var(--fs-xxl); line-height: 1.1; }
+
+/* timer */
+.ringwrap { position: relative; width: min(72vw, 260px); aspect-ratio: 1; margin: 0 auto; }
+.ringwrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ringwrap .bgc { stroke: var(--surface-2); }
+.ringwrap .fgc { stroke: var(--accent); transition: stroke-dashoffset .25s linear; }
+.ringwrap .mid { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.tnum { font-size: var(--fs-xxl); font-weight: 600; }
+
+/* breathe */
+.bcircle { position: relative; width: min(70vw, 260px); aspect-ratio: 1; margin: 8px auto; border-radius: 50%; border: 4px solid var(--accent); transform: scale(.82); display: flex; align-items: center; justify-content: center; flex-direction: column; }
+.bcircle .fill { position: absolute; inset: 0; border-radius: 50%; background: var(--accent-soft); }
+.bcircle .txt { position: relative; font-size: var(--fs-l); font-family: var(--font-display); font-weight: 650; text-align: center; }
+.bcircle .cnt { position: relative; font-size: var(--fs-xl); }
+
+/* progress */
+.dots { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; font-size: var(--fs-xs); color: var(--muted); }
+.dot { width: 22px; height: 22px; border-radius: 50%; margin: 0 auto 4px; background: var(--line); }
+.dot.on { background: var(--accent); }
+.dot.today { outline: 3px solid var(--text); outline-offset: 2px; }
+.list { list-style: none; padding: 0; margin: 0; }
+.list li { padding: 8px 0; border-top: 1px solid var(--line); }
+.list li:first-child { border-top: 0; }
+
+/* settings */
+.swatch { width: 40px; height: 40px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; flex: none; overflow: hidden; }
+.swatch i { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); }
+.swatch.auto { background: linear-gradient(135deg, #F3F0E6 50%, #0F1B2D 50%); }
+
+/* feedback */
+.moods { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.mood { min-height: 64px; border-radius: var(--radius-m); border: 2px solid var(--line); background: var(--surface); font-size: 28px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px 2px; }
+.mood small { font-size: 11px; color: var(--muted); line-height: 1.1; }
+.mood[aria-checked="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.preview { white-space: pre-wrap; word-break: break-word; font-family: var(--font-num); font-size: var(--fs-s); background: var(--surface-2); border-radius: var(--radius-m); padding: 12px; margin: 0; user-select: text; -webkit-user-select: text; }
+/* .k-icon fixes 24px in themes.css; game icons need their own size */
+.hcard .k-icon { width: 96px; height: 96px; }
+.ex .k-icon { width: 44px; height: 44px; }
+/* v1.1 P1-9: fade the background art behind text-heavy screens */
+body[data-route="feedback"] .bgart, body[data-route="about"] .bgart { opacity: .3; }
+
+</style>
+</head>
+<body class="k-root">
+<noscript><p style="padding:24px;font-size:18px">Bu sayfa önizlemede çalışmaz. Lütfen Safari’de aç (ya da paylaşılan bağlantıyı kullan).</p></noscript>
+<div class="bgart" id="bgart" aria-hidden="true"></div>
+<div class="app">
+  <div id="sys" class="sysbar" role="status" hidden></div>
+  <section data-screen="home" hidden></section>
+  <section data-screen="games" hidden></section>
+  <section data-screen="game" hidden></section>
+  <section data-screen="timer" hidden></section>
+  <section data-screen="breathe" hidden></section>
+  <section data-screen="progress" hidden></section>
+  <section data-screen="settings" hidden></section>
+  <section data-screen="feedback" hidden></section>
+  <section data-screen="about" hidden></section>
+</div>
+<script>
+/* KONSANTRASYON — 06_themes/sound.js
+ * window.KSound: fully synthesized sound library (Web Audio API). No audio files, no network.
+ *
+ * Design rules (see themes_proposal.md):
+ *  - Every sound is short, soft, rounded (sine/triangle + low-pass), no harsh square buzzers.
+ *  - wrong() is a gentle low "hmm" – quieter than correct(), and gets even quieter if repeated quickly.
+ *  - correct() rotates through pentatonic intervals so it does not become grating with repetition.
+ *  - Noise & ambient music fade in/out; nothing starts without a user gesture (init()).
+ *
+ * API:
+ *   KSound.init()                        -> Promise; call inside a click/touch handler
+ *   KSound.tap() correct() wrong() levelUp() streak(n) tick() timerEnd()
+ *   KSound.breatheIn(sec) / breatheOut(sec) -> returns {stop()}
+ *   KSound.startNoise('white'|'pink'|'brown', vol0to1) / stopNoise()
+ *   KSound.startAmbient('orman'|'gece'|'kagit', vol0to1) / stopAmbient()
+ *   KSound.setMasterVolume(v) getMasterVolume()
+ *   KSound.setSfxVolume(v) setNoiseVolume(v) setAmbientVolume(v)
+ *   KSound.toggleMute() setMuted(bool) isMuted()
+ *   KSound.isReady()
+ */
+(function (global) {
+  'use strict';
+
+  var AC = global.AudioContext || global.webkitAudioContext;
+  var ctx = null, master, comp, sfxBus, noiseBus, ambBus, ambWet, reverb;
+  var masterVol = 0.8, muted = false;
+  var sfxVol = 0.9, noiseVol = 0.35, ambVol = 0.35;
+  var noiseBuffers = {}, noiseSrc = null, noiseGain = null, noiseType = null;
+  var amb = null; // ambient state
+  var lastWrong = 0, wrongRun = 0, correctIdx = 0;
+  var STORE = 'ksound.v1';
+
+  // ---------- persistence (optional; ignored if storage blocked) ----------
+  function load() {
+    try {
+      var s = JSON.parse(global.localStorage.getItem(STORE) || '{}');
+      if (typeof s.master === 'number') masterVol = s.master;
+      if (typeof s.muted === 'boolean') muted = s.muted;
+      if (typeof s.sfx === 'number') sfxVol = s.sfx;
+      if (typeof s.noise === 'number') noiseVol = s.noise;
+      if (typeof s.amb === 'number') ambVol = s.amb;
+    } catch (e) {}
+  }
+  function save() {
+    try {
+      global.localStorage.setItem(STORE, JSON.stringify({ master: masterVol, muted: muted, sfx: sfxVol, noise: noiseVol, amb: ambVol }));
+    } catch (e) {}
+  }
+  load();
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function now() { return ctx.currentTime; }
+  function ready() { return !!ctx && ctx.state !== 'closed'; }
+  function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+  function ramp(param, value, time, t0) {
+    var t = t0 != null ? t0 : now();
+    param.cancelScheduledValues(t);
+    param.setValueAtTime(param.value, t);
+    param.linearRampToValueAtTime(value, t + time);
+  }
+
+  // ---------- graph ----------
+  function build() {
+    ctx = new AC({ latencyHint: 'interactive' });
+    comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -18; comp.knee.value = 12; comp.ratio.value = 3;
+    comp.attack.value = 0.005; comp.release.value = 0.25;
+    master = ctx.createGain();
+    master.gain.value = muted ? 0 : masterVol;
+    comp.connect(master); master.connect(ctx.destination);
+
+    sfxBus = ctx.createGain(); sfxBus.gain.value = sfxVol; sfxBus.connect(comp);
+    noiseBus = ctx.createGain(); noiseBus.gain.value = noiseVol; noiseBus.connect(comp);
+    ambBus = ctx.createGain(); ambBus.gain.value = ambVol; ambBus.connect(comp);
+
+    // procedural reverb: decaying stereo noise impulse
+    reverb = ctx.createConvolver();
+    reverb.buffer = makeImpulse(2.8, 2.6);
+    ambWet = ctx.createGain(); ambWet.gain.value = 0.55;
+    reverb.connect(ambWet); ambWet.connect(comp); // review fix: sfx reverb no longer silenced when ambient is off
+    var ambSend = ctx.createGain(); ambSend.gain.value = 1 / 0.7; // keeps old dry/wet ratio (dry 0.7, send 1)
+    ambBus.connect(ambSend); ambSend.connect(reverb);
+    // a touch of reverb on sfx too, so chimes ring softly
+    var sfxVerb = ctx.createGain(); sfxVerb.gain.value = 0.18;
+    sfxBus.connect(sfxVerb); sfxVerb.connect(reverb);
+  }
+
+  function makeImpulse(seconds, decay) {
+    var rate = ctx.sampleRate, len = Math.floor(rate * seconds);
+    var buf = ctx.createBuffer(2, len, rate);
+    for (var c = 0; c < 2; c++) {
+      var d = buf.getChannelData(c), lp = 0;
+      for (var i = 0; i < len; i++) {
+        var w = Math.random() * 2 - 1;
+        lp = lp + 0.35 * (w - lp); // darken
+        d[i] = lp * Math.pow(1 - i / len, decay);
+      }
+    }
+    return buf;
+  }
+
+  function init() {
+    if (!AC) return Promise.resolve(false);
+    if (!ctx) build();
+    // iOS unlock: play a 1-sample silent buffer inside the gesture
+    try {
+      var b = ctx.createBuffer(1, 1, 22050), s = ctx.createBufferSource();
+      s.buffer = b; s.connect(ctx.destination); s.start(0);
+    } catch (e) {}
+    if (ctx.state === 'suspended' || ctx.state === 'interrupted') return ctx.resume().then(function () { return true; }, function () { return false; });
+    return Promise.resolve(true);
+  }
+
+  // Auto-resume if the OS suspended us (e.g. phone call) and the user taps again
+  function ensure() {
+    if (!ctx) return false;
+    if (ctx.state === 'suspended' || ctx.state === 'interrupted') { ctx.resume().catch(function () {}); } // iOS uses 'interrupted'
+    return true;
+  }
+
+  // ---------- voice helpers ----------
+  /** Soft enveloped oscillator note. */
+  function tone(freq, t, dur, o) {
+    o = o || {};
+    var osc = ctx.createOscillator();
+    var g = ctx.createGain();
+    var f = ctx.createBiquadFilter();
+    osc.type = o.type || 'sine';
+    osc.frequency.setValueAtTime(freq, t);
+    if (o.glideTo) osc.frequency.exponentialRampToValueAtTime(o.glideTo, t + (o.glideTime || dur));
+    if (o.detune) osc.detune.value = o.detune;
+    f.type = 'lowpass'; f.frequency.value = o.cutoff || 4000; f.Q.value = 0.5;
+    var peak = o.gain != null ? o.gain : 0.25, a = o.attack || 0.005, r = o.release || dur;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(peak, t + a);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + a + r);
+    osc.connect(f); f.connect(g); g.connect(o.dest || sfxBus);
+    if (o.pan != null && ctx.createStereoPanner) {
+      var p = ctx.createStereoPanner(); p.pan.value = o.pan;
+      g.disconnect(); g.connect(p); p.connect(o.dest || sfxBus);
+    }
+    osc.start(t); osc.stop(t + a + r + 0.05);
+    return osc;
+  }
+
+  /** Bell = a few (slightly inharmonic) partials. */
+  function bell(freq, t, o) {
+    o = o || {};
+    var g = o.gain != null ? o.gain : 0.18, len = o.len || 1.6;
+    tone(freq, t, len, { type: 'sine', gain: g, attack: 0.004, release: len, dest: o.dest, pan: o.pan });
+    tone(freq * 2.0, t, len * 0.6, { type: 'sine', gain: g * 0.35, attack: 0.003, release: len * 0.6, dest: o.dest, pan: o.pan });
+    tone(freq * 3.01, t, len * 0.3, { type: 'sine', gain: g * 0.12, attack: 0.002, release: len * 0.3, dest: o.dest, pan: o.pan });
+    if (o.inharm) tone(freq * 2.76, t, len * 0.5, { type: 'sine', gain: g * 0.15, attack: 0.002, release: len * 0.5, dest: o.dest });
+  }
+
+  function noiseBurst(t, dur, o) {
+    o = o || {};
+    var src = ctx.createBufferSource(); src.buffer = getNoise('white');
+    var f = ctx.createBiquadFilter(); f.type = o.ftype || 'bandpass';
+    f.frequency.value = o.freq || 2000; f.Q.value = o.q || 1;
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(o.gain || 0.1, t + (o.attack || 0.002));
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    src.connect(f); f.connect(g); g.connect(o.dest || sfxBus);
+    src.start(t, Math.random() * 2); src.stop(t + dur + 0.05);
+    return { src: src, filter: f, gain: g };
+  }
+
+  // C major pentatonic (MIDI) for rewards
+  var PENTA = [72, 74, 76, 79, 81, 84, 86, 88, 91, 93];
+
+  // ---------- UI / game SFX ----------
+  function tap() {
+    if (!ensure()) return;
+    var t = now();
+    tone(880, t, 0.06, { type: 'sine', gain: 0.10, attack: 0.002, release: 0.06, cutoff: 3000 });
+    tone(1320, t, 0.03, { type: 'sine', gain: 0.03, attack: 0.001, release: 0.03 });
+  }
+
+  function correct() {
+    if (!ensure()) return;
+    var t = now();
+    // rotate among pleasant intervals to avoid listener fatigue
+    var pairs = [[0, 2], [1, 3], [2, 4], [0, 3]];
+    var p = pairs[correctIdx++ % pairs.length];
+    bell(mtof(PENTA[p[0]]), t, { gain: 0.13, len: 0.5 });
+    bell(mtof(PENTA[p[1]]), t + 0.075, { gain: 0.15, len: 0.8 });
+  }
+
+  function wrong() {
+    if (!ensure()) return;
+    var t = now(), ms = Date.now();
+    // repeated mistakes within 2 s get progressively softer (never nagging)
+    wrongRun = (ms - lastWrong < 2000) ? Math.min(wrongRun + 1, 4) : 0;
+    lastWrong = ms;
+    var g = 0.12 * Math.pow(0.7, wrongRun);
+    // soft low "hmm": two detuned triangles sliding gently down a whole tone, heavily low-passed
+    tone(262, t, 0.28, { type: 'triangle', gain: g, attack: 0.02, release: 0.28, glideTo: 233, glideTime: 0.22, cutoff: 700 });
+    tone(262, t, 0.28, { type: 'sine', gain: g * 0.6, attack: 0.02, release: 0.28, glideTo: 233, glideTime: 0.22, detune: -8, cutoff: 700 });
+  }
+
+  function levelUp() {
+    if (!ensure()) return;
+    var t = now(), seq = [0, 2, 3, 4, 5];
+    for (var i = 0; i < seq.length; i++) {
+      bell(mtof(PENTA[seq[i]]), t + i * 0.09, { gain: 0.11 + i * 0.01, len: 0.9, pan: -0.4 + i * 0.2 });
+    }
+    // warm resolving chord + shimmer
+    var tc = t + seq.length * 0.09 + 0.05;
+    [60, 67, 72, 76].forEach(function (m, k) {
+      tone(mtof(m), tc, 1.6, { type: 'triangle', gain: 0.05, attack: 0.04, release: 1.6, cutoff: 2200, pan: (k - 1.5) * 0.3 });
+    });
+    noiseBurst(tc, 0.9, { ftype: 'highpass', freq: 7000, gain: 0.02, attack: 0.1 });
+  }
+
+  /** Streak chime: n notes (capped at 5), climbing higher as the streak grows. */
+  function streak(n) {
+    if (!ensure()) return;
+    n = Math.max(1, Math.floor(n || 1));
+    var t = now(), count = Math.min(n, 5);
+    var base = Math.min(Math.floor(n / 3), PENTA.length - count);
+    for (var i = 0; i < count; i++) {
+      bell(mtof(PENTA[base + i]), t + i * 0.07, { gain: 0.09 + 0.012 * i, len: 0.55 });
+    }
+  }
+
+  function tick() {
+    if (!ensure()) return;
+    var t = now();
+    noiseBurst(t, 0.025, { freq: 3200, q: 4, gain: 0.05 });
+    tone(1800, t, 0.02, { type: 'sine', gain: 0.025, attack: 0.001, release: 0.02 });
+  }
+
+  /** Gentle "singing bowl" – three soft strikes, long ring. */
+  function timerEnd() {
+    if (!ensure()) return;
+    var t = now();
+    [0, 1.1, 2.2].forEach(function (d, i) {
+      var f = [mtof(69), mtof(76), mtof(81)][i];
+      bell(f, t + d, { gain: 0.16, len: 3.2, inharm: true });
+      tone(f / 2, t + d, 3.2, { type: 'sine', gain: 0.05, attack: 0.01, release: 3.2 });
+    });
+  }
+
+  // ---------- breathing ----------
+  function breath(sec, up) {
+    if (!ensure()) return { stop: function () {} };
+    sec = clamp(+sec || 4, 1, 20);
+    var t = now(), end = t + sec;
+    // airy whoosh: pink noise through a moving band-pass
+    var src = ctx.createBufferSource(); src.buffer = getNoise('pink'); src.loop = true;
+    var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 0.8;
+    bp.frequency.setValueAtTime(up ? 350 : 1400, t);
+    bp.frequency.exponentialRampToValueAtTime(up ? 1400 : 300, end);
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(0.10, t + sec * 0.35);
+    g.gain.linearRampToValueAtTime(0.06, t + sec * 0.8);
+    g.gain.linearRampToValueAtTime(0.0001, end);
+    src.connect(bp); bp.connect(g); g.connect(sfxBus);
+    src.start(t, Math.random() * 3); src.stop(end + 0.1);
+    // soft tonal guide (fifth apart, glides up on inhale / down on exhale)
+    var o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), tg = ctx.createGain();
+    var lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900;
+    o1.type = 'sine'; o2.type = 'triangle';
+    var f0 = up ? 196 : 262, f1 = up ? 262 : 196;
+    o1.frequency.setValueAtTime(f0, t); o1.frequency.exponentialRampToValueAtTime(f1, end);
+    o2.frequency.setValueAtTime(f0 * 1.5, t); o2.frequency.exponentialRampToValueAtTime(f1 * 1.5, end);
+    tg.gain.setValueAtTime(0.0001, t);
+    tg.gain.linearRampToValueAtTime(0.05, t + Math.min(1, sec * 0.3));
+    tg.gain.setValueAtTime(0.05, end - Math.min(1, sec * 0.3));
+    tg.gain.linearRampToValueAtTime(0.0001, end);
+    o1.connect(lp); o2.connect(lp); lp.connect(tg); tg.connect(sfxBus);
+    o1.start(t); o2.start(t); o1.stop(end + 0.1); o2.stop(end + 0.1);
+    return {
+      stop: function () {
+        var n = now();
+        [g, tg].forEach(function (x) { ramp(x.gain, 0.0001, 0.25, n); });
+        try { src.stop(n + 0.3); o1.stop(n + 0.3); o2.stop(n + 0.3); } catch (e) {}
+      }
+    };
+  }
+  function breatheIn(sec) { return breath(sec, true); }
+  function breatheOut(sec) { return breath(sec, false); }
+
+  // ---------- noise ----------
+  function getNoise(type) {
+    if (noiseBuffers[type]) return noiseBuffers[type];
+    var rate = ctx.sampleRate, fade = Math.floor(rate * 0.2), len = rate * 6; // 6 s seamless loop
+    var tmp = new Float32Array(len + fade);
+    var out = ctx.createBuffer(2, len, rate);
+    for (var c = 0; c < 2; c++) {             // 2 decorrelated channels
+      var i;
+      if (type === 'pink') {                   // Paul Kellet's refined pink filter
+        var b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+        for (i = 0; i < tmp.length; i++) {
+          var w = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + w * 0.0555179; b1 = 0.99332 * b1 + w * 0.0750759;
+          b2 = 0.96900 * b2 + w * 0.1538520; b3 = 0.86650 * b3 + w * 0.3104856;
+          b4 = 0.55000 * b4 + w * 0.5329522; b5 = -0.7616 * b5 - w * 0.0168980;
+          tmp[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * 0.5362) * 0.11;
+          b6 = w * 0.115926;
+        }
+      } else if (type === 'brown') {           // integrated (red/brown) noise, leaky
+        var last = 0;
+        for (i = 0; i < tmp.length; i++) {
+          last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02;
+          tmp[i] = last * 3.5;
+        }
+      } else {
+        for (i = 0; i < tmp.length; i++) tmp[i] = (Math.random() * 2 - 1) * 0.5;
+      }
+      var d = out.getChannelData(c);
+      for (i = 0; i < len; i++) d[i] = tmp[i];
+      // crossfade the overflow tail into the head so the loop seam doesn't click
+      for (i = 0; i < fade; i++) { var k = i / fade; d[i] = tmp[i] * k + tmp[len + i] * (1 - k); }
+    }
+    noiseBuffers[type] = out;
+    return out;
+  }
+
+  function startNoise(type, volume) {
+    if (!ensure()) return false;
+    type = (type === 'pink' || type === 'brown') ? type : 'white';
+    if (volume != null) setNoiseVolume(volume);
+    if (noiseSrc && noiseType === type) return true;
+    stopNoise(0.6);
+    var src = ctx.createBufferSource(); src.buffer = getNoise(type); src.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0.0001;
+    var lp = ctx.createBiquadFilter(); lp.type = 'lowpass';
+    // tame white noise harshness slightly; pink/brown pass through
+    lp.frequency.value = type === 'white' ? 9000 : 16000;
+    src.connect(lp); lp.connect(g); g.connect(noiseBus);
+    src.start();
+    ramp(g.gain, type === 'white' ? 0.6 : 0.9, 1.5);
+    noiseSrc = src; noiseGain = g; noiseType = type;
+    return true;
+  }
+
+  function stopNoise(fade) {
+    if (!noiseSrc || !ctx) return;
+    var s = noiseSrc, g = noiseGain, f = fade == null ? 1.2 : fade;
+    ramp(g.gain, 0.0001, f);
+    try { s.stop(now() + f + 0.05); } catch (e) {}
+    noiseSrc = noiseGain = noiseType = null;
+  }
+
+  // ---------- generative ambient ----------
+  var AMBIENT = {
+    // Forest dawn: bright major pentatonic, triangle plucks + occasional bird-like glide
+    orman: { scale: [60, 62, 64, 67, 69], root: 48, bpm: 72, pad: [48, 55, 64], wave: 'triangle',
+             pluckGain: 0.07, pluckLen: 1.4, density: 0.55, cutoff: 2600, extra: 'bird' },
+    // Night ocean: D minor pentatonic, slow sine pads, swells of filtered noise (waves)
+    gece:  { scale: [62, 65, 67, 69, 72], root: 38, bpm: 50, pad: [38, 45, 53, 57], wave: 'sine',
+             pluckGain: 0.06, pluckLen: 2.6, density: 0.4, cutoff: 1600, extra: 'wave' },
+    // Warm paper: F major pentatonic, kalimba/music-box like plucks, soft crackle
+    kagit: { scale: [65, 67, 69, 72, 74], root: 41, bpm: 66, pad: [41, 48, 57], wave: 'sine',
+             pluckGain: 0.08, pluckLen: 1.1, density: 0.5, cutoff: 3000, extra: 'crackle' }
+  };
+
+  function startAmbient(themeName, volume) {
+    if (!ensure()) return false;
+    var cfg = AMBIENT[themeName] || AMBIENT.orman;
+    if (volume != null) setAmbientVolume(volume);
+    if (amb && amb.name === themeName) return true;
+    stopAmbient(1.0);
+
+    var state = { name: themeName, cfg: cfg, nodes: [], timer: null, nextT: now() + 0.2, step: 0, lastNote: 2, alive: true };
+    var dry = ctx.createGain(); dry.gain.value = 0.0001; dry.connect(ambBus); // reverb send now via ambBus (see build)
+    var bus = ctx.createGain(); bus.gain.value = 1; bus.connect(dry);
+    state.bus = bus; state.dry = dry;
+
+    // sustained pad (very quiet, slow tremolo)
+    cfg.pad.forEach(function (m, i) {
+      var o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter();
+      var lfo = ctx.createOscillator(), lg = ctx.createGain();
+      o.type = i === 0 ? 'sine' : 'triangle'; o.frequency.value = mtof(m); o.detune.value = (i - 1) * 4;
+      f.type = 'lowpass'; f.frequency.value = 700 + i * 150;
+      g.gain.value = 0.0001;
+      lfo.frequency.value = 0.05 + i * 0.03; lg.gain.value = 0.008;
+      lfo.connect(lg); lg.connect(g.gain);
+      o.connect(f); f.connect(g); g.connect(bus);
+      o.start(); lfo.start();
+      g.gain.linearRampToValueAtTime(0.022 / (i + 1) + 0.008, now() + 4);
+      state.nodes.push(o, lfo);
+    });
+
+    ramp(dry.gain, 0.7, 2.5);
+
+    var beat = 60 / cfg.bpm;
+    function schedule() {
+      if (!state.alive) return;
+      var horizon = now() + 0.6;
+      while (state.nextT < horizon) {
+        var t = state.nextT;
+        // random-walk melody on pentatonic scale -> always consonant
+        if (Math.random() < cfg.density) {
+          var move = [-2, -1, -1, 0, 1, 1, 2][Math.floor(Math.random() * 7)];
+          state.lastNote = clamp(state.lastNote + move, 0, cfg.scale.length - 1);
+          var oct = Math.random() < 0.2 ? 12 : 0;
+          var f = mtof(cfg.scale[state.lastNote] + oct);
+          var pan = Math.random() * 1.2 - 0.6;
+          tone(f, t, cfg.pluckLen, { type: cfg.wave, gain: cfg.pluckGain, attack: 0.01, release: cfg.pluckLen, cutoff: cfg.cutoff, dest: bus, pan: pan });
+          if (themeName === 'kagit') // kalimba tine overtone
+            tone(f * 4.0, t, 0.25, { type: 'sine', gain: cfg.pluckGain * 0.25, attack: 0.002, release: 0.25, dest: bus, pan: pan });
+        }
+        // bass note every 8 beats
+        if (state.step % 8 === 0) {
+          tone(mtof(cfg.root + [0, 7, 5, 0][(state.step / 8) % 4 | 0]), t, beat * 6, { type: 'sine', gain: 0.05, attack: 0.4, release: beat * 6, cutoff: 500, dest: bus });
+        }
+        // texture
+        if (cfg.extra === 'bird' && Math.random() < 0.035) {
+          var bf = 2200 + Math.random() * 1200;
+          tone(bf, t, 0.12, { type: 'sine', gain: 0.018, attack: 0.01, release: 0.12, glideTo: bf * 1.3, glideTime: 0.1, dest: bus, pan: Math.random() * 2 - 1 });
+          tone(bf * 1.1, t + 0.16, 0.1, { type: 'sine', gain: 0.014, attack: 0.01, release: 0.1, glideTo: bf * 1.4, glideTime: 0.08, dest: bus });
+        }
+        if (cfg.extra === 'wave' && state.step % 12 === 0) {
+          var wb = noiseBurst(t, beat * 9, { ftype: 'lowpass', freq: 500, gain: 0.05, attack: beat * 4, dest: bus });
+          wb.filter.frequency.linearRampToValueAtTime(900, t + beat * 4);
+          wb.filter.frequency.linearRampToValueAtTime(400, t + beat * 9);
+        }
+        if (cfg.extra === 'crackle' && Math.random() < 0.25) {
+          noiseBurst(t + Math.random() * beat, 0.012, { freq: 2500 + Math.random() * 3000, q: 6, gain: 0.025, dest: bus });
+        }
+        state.step++;
+        state.nextT += beat;
+      }
+    }
+    schedule();
+    state.timer = setInterval(schedule, 200);
+    amb = state;
+    return true;
+  }
+
+  function stopAmbient(fade) {
+    if (!amb || !ctx) return;
+    var s = amb, f = fade == null ? 1.5 : fade;
+    s.alive = false; clearInterval(s.timer);
+    ramp(s.dry.gain, 0.0001, f); // fade this session only; a new session started right after is unaffected
+    setTimeout(function () {
+      s.nodes.forEach(function (n) { try { n.stop(); } catch (e) {} });
+      try { s.bus.disconnect(); s.dry.disconnect(); } catch (e) {}
+    }, f * 1000 + 100);
+    amb = null;
+  }
+
+  // ---------- volume / mute ----------
+  function applyMaster(fade) {
+    if (!ctx) return;
+    ramp(master.gain, muted ? 0 : masterVol, fade == null ? 0.15 : fade);
+  }
+  function setMasterVolume(v) { masterVol = clamp(+v || 0, 0, 1); applyMaster(); save(); }
+  function getMasterVolume() { return masterVol; }
+  function setSfxVolume(v) { sfxVol = clamp(+v || 0, 0, 1); if (ctx) ramp(sfxBus.gain, sfxVol, 0.1); save(); }
+  function setNoiseVolume(v) { noiseVol = clamp(+v || 0, 0, 1); if (ctx) ramp(noiseBus.gain, noiseVol, 0.3); save(); }
+  function setAmbientVolume(v) { ambVol = clamp(+v || 0, 0, 1); if (ctx) ramp(ambBus.gain, ambVol, 0.3); save(); }
+  function setMuted(b) { muted = !!b; applyMaster(0.2); save(); return muted; }
+  function toggleMute() { return setMuted(!muted); }
+  function isMuted() { return muted; }
+
+  global.KSound = {
+    init: init, isReady: ready,
+    tap: tap, correct: correct, wrong: wrong, levelUp: levelUp, streak: streak, tick: tick, timerEnd: timerEnd,
+    breatheIn: breatheIn, breatheOut: breatheOut,
+    startNoise: startNoise, stopNoise: stopNoise,
+    startAmbient: startAmbient, stopAmbient: stopAmbient,
+    setMasterVolume: setMasterVolume, getMasterVolume: getMasterVolume,
+    setSfxVolume: setSfxVolume, setNoiseVolume: setNoiseVolume, setAmbientVolume: setAmbientVolume,
+    setMuted: setMuted, toggleMute: toggleMute, isMuted: isMuted,
+    themes: Object.keys(AMBIENT),
+    get context() { return ctx; }
+  };
+})(typeof window !== 'undefined' ? window : this);
+
+</script>
+<script>
+/* KONSANTRASYON — 06_themes/art.js
+ * window.KArt: inline SVG strings only (original designs, no external assets, no medical cross/plus).
+ *
+ *   KArt.mascot(theme, state)     theme: 'orman'|'gece'|'kagit', state: 'idle'|'happy'|'sleepy'  -> SVG string
+ *   KArt.mascots[theme][state]    same, precomputed (insert each string once; call mascot() for extra copies)
+ *   KArt.mascotName[theme]        Turkish name
+ *   KArt.background(theme)        full-bleed decorative SVG (preserveAspectRatio slice, aria-hidden)
+ *   KArt.icon(name, opts)         24x24 stroke icon using currentColor; opts {size, label, stroke}
+ *   KArt.icons                    raw inner paths by name
+ *   KArt.iconNames                list
+ */
+(function (global) {
+  'use strict';
+
+  // ---------------- shared face parts ----------------
+  function eyes(state, lx, rx, y, color) {
+    color = color || '#2A2A2A';
+    if (state === 'happy') {
+      return '<path d="M' + (lx - 5) + ' ' + (y + 2) + ' Q' + lx + ' ' + (y - 5) + ' ' + (lx + 5) + ' ' + (y + 2) + '" fill="none" stroke="' + color + '" stroke-width="3" stroke-linecap="round"/>' +
+             '<path d="M' + (rx - 5) + ' ' + (y + 2) + ' Q' + rx + ' ' + (y - 5) + ' ' + (rx + 5) + ' ' + (y + 2) + '" fill="none" stroke="' + color + '" stroke-width="3" stroke-linecap="round"/>';
+    }
+    if (state === 'sleepy') {
+      return '<path d="M' + (lx - 5) + ' ' + y + ' Q' + lx + ' ' + (y + 4) + ' ' + (lx + 5) + ' ' + y + '" fill="none" stroke="' + color + '" stroke-width="2.6" stroke-linecap="round"/>' +
+             '<path d="M' + (rx - 5) + ' ' + y + ' Q' + rx + ' ' + (y + 4) + ' ' + (rx + 5) + ' ' + y + '" fill="none" stroke="' + color + '" stroke-width="2.6" stroke-linecap="round"/>';
+    }
+    // idle: round eyes with highlight
+    return '<circle cx="' + lx + '" cy="' + y + '" r="4.6" fill="' + color + '"/><circle cx="' + (lx + 1.6) + '" cy="' + (y - 1.8) + '" r="1.6" fill="#fff"/>' +
+           '<circle cx="' + rx + '" cy="' + y + '" r="4.6" fill="' + color + '"/><circle cx="' + (rx + 1.6) + '" cy="' + (y - 1.8) + '" r="1.6" fill="#fff"/>';
+  }
+  function mouth(state, cx, y, color) {
+    color = color || '#2A2A2A';
+    if (state === 'happy') return '<path d="M' + (cx - 6) + ' ' + y + ' Q' + cx + ' ' + (y + 9) + ' ' + (cx + 6) + ' ' + y + ' Z" fill="#B5473A" stroke="' + color + '" stroke-width="2" stroke-linejoin="round"/>';
+    if (state === 'sleepy') return '<ellipse cx="' + cx + '" cy="' + (y + 2) + '" rx="2.6" ry="2" fill="' + color + '" opacity=".8"/>';
+    return '<path d="M' + (cx - 4) + ' ' + y + ' Q' + cx + ' ' + (y + 4.5) + ' ' + (cx + 4) + ' ' + y + '" fill="none" stroke="' + color + '" stroke-width="2.4" stroke-linecap="round"/>';
+  }
+  function cheeks(lx, rx, y, c) {
+    return '<ellipse cx="' + lx + '" cy="' + y + '" rx="5" ry="3" fill="' + c + '" opacity=".55"/><ellipse cx="' + rx + '" cy="' + y + '" rx="5" ry="3" fill="' + c + '" opacity=".55"/>';
+  }
+  function sparkles(c) {
+    return '<g fill="' + c + '">' +
+      '<path d="M18 30 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z"/>' +
+      '<path d="M100 22 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6z"/>' +
+      '<circle cx="104" cy="52" r="2"/></g>';
+  }
+  function zzz(c) {
+    return '<g fill="none" stroke="' + c + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M92 20 h8 l-8 9 h8"/><path d="M104 8 h6 l-6 7 h6"/></g>';
+  }
+  function wrap(inner, title) {
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="' + title + '"><title>' + title + '</title>' + inner + '</svg>';
+  }
+
+  // ---------------- 1. FİLİZ (orman): a round seed-sprout creature ----------------
+  function filiz(state) {
+    var droop = state === 'sleepy';
+    var leafL = droop ? 'M60 34 C48 34 36 30 32 40 C44 44 54 42 60 34Z' : 'M60 34 C54 20 40 14 30 18 C34 30 46 36 60 34Z';
+    var leafR = droop ? 'M60 34 C72 34 84 30 88 40 C76 44 66 42 60 34Z' : 'M60 34 C66 18 82 12 92 16 C88 30 74 36 60 34Z';
+    var bounce = state === 'happy' ? -4 : 0;
+    var s = '<g transform="translate(0 ' + bounce + ')">' +
+      '<ellipse cx="60" cy="108" rx="30" ry="5" fill="#22322A" opacity=".10"/>' +
+      '<path d="M60 44 L60 32" stroke="#3E7D55" stroke-width="4" stroke-linecap="round"/>' +
+      '<path d="' + leafL + '" fill="#6FAF78" stroke="#3E7D55" stroke-width="2"/>' +
+      '<path d="' + leafR + '" fill="#86C28A" stroke="#3E7D55" stroke-width="2"/>' +
+      '<path d="M60 40 C86 40 98 62 96 80 C94 98 80 106 60 106 C40 106 26 98 24 80 C22 62 34 40 60 40Z" fill="#F2D9A6" stroke="#8C6A3C" stroke-width="2.5"/>' +
+      '<path d="M36 64 C40 52 50 46 58 46" fill="none" stroke="#FFF4DC" stroke-width="4" stroke-linecap="round" opacity=".9"/>' +
+      cheeks(42, 78, 82, '#E8977A') + eyes(state, 47, 73, 72, '#3B2E22') + mouth(state, 60, 86, '#3B2E22') +
+      '</g>';
+    if (state === 'happy') s += sparkles('#E0A93B');
+    if (state === 'sleepy') s += zzz('#56675C');
+    return wrap(s, 'Filiz ' + label(state));
+  }
+
+  // ---------------- 2. PAMUK (gece): a soft little rabbit ----------------
+  function pamuk(state) {
+    var earL = state === 'sleepy' ? 'rotate(-38 48 50)' : state === 'happy' ? 'rotate(-8 48 50)' : 'rotate(-4 48 50)';
+    var earR = state === 'sleepy' ? 'rotate(38 72 50)' : state === 'happy' ? 'rotate(8 72 50)' : 'rotate(4 72 50)';
+    var bounce = state === 'happy' ? -4 : 0;
+    var s = '<g transform="translate(0 ' + bounce + ')">' +
+      '<ellipse cx="60" cy="110" rx="30" ry="4" fill="#000" opacity=".18"/>' +
+      // ears
+      '<g transform="' + earL + '"><ellipse cx="48" cy="30" rx="10" ry="24" fill="#F4F1F8" stroke="#3A4A66" stroke-width="2.5"/><ellipse cx="48" cy="32" rx="5" ry="16" fill="#F6B8C6"/></g>' +
+      '<g transform="' + earR + '"><ellipse cx="72" cy="30" rx="10" ry="24" fill="#F4F1F8" stroke="#3A4A66" stroke-width="2.5"/><ellipse cx="72" cy="32" rx="5" ry="16" fill="#F6B8C6"/></g>' +
+      // feet
+      '<ellipse cx="44" cy="106" rx="11" ry="5" fill="#F4F1F8" stroke="#3A4A66" stroke-width="2"/>' +
+      '<ellipse cx="76" cy="106" rx="11" ry="5" fill="#F4F1F8" stroke="#3A4A66" stroke-width="2"/>' +
+      // body/head
+      '<path d="M60 46 C86 46 96 64 96 80 C96 98 80 106 60 106 C40 106 24 98 24 80 C24 64 34 46 60 46Z" fill="#F4F1F8" stroke="#3A4A66" stroke-width="2.5"/>' +
+      '<path d="M36 68 C40 58 48 52 56 52" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity=".9"/>' +
+      // nose
+      '<path d="M57 79 h6 l-3 3.5z" fill="#E58FA2" stroke="#3A4A66" stroke-width="1.2" stroke-linejoin="round"/>' +
+      cheeks(42, 78, 84, '#F29CB0') + eyes(state, 48, 72, 72, '#2B2B3A') + mouth(state, 60, 86, '#2B2B3A') +
+      '</g>';
+    if (state === 'happy') s += sparkles('#FFE7A0');
+    if (state === 'sleepy') s += zzz('#A6B6CC');
+    return wrap(s, 'Pamuk ' + label(state));
+  }
+
+  // ---------------- 3. PITIR (kagit): a round little hedgehog ----------------
+  function pitir(state) {
+    var spikes = '';
+    for (var i = 0; i < 11; i++) {
+      var a = Math.PI * (1.05 + i * 0.09), r1 = 40, r2 = state === 'sleepy' ? 47 : 52;
+      var cx = 64, cy = 74;
+      var x1 = cx + Math.cos(a - 0.12) * r1, y1 = cy + Math.sin(a - 0.12) * r1;
+      var x2 = cx + Math.cos(a) * r2, y2 = cy + Math.sin(a) * r2;
+      var x3 = cx + Math.cos(a + 0.12) * r1, y3 = cy + Math.sin(a + 0.12) * r1;
+      spikes += 'M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' L' + x2.toFixed(1) + ' ' + y2.toFixed(1) + ' L' + x3.toFixed(1) + ' ' + y3.toFixed(1) + ' ';
+    }
+    var tilt = state === 'happy' ? -4 : state === 'sleepy' ? 4 : 0;
+    var s = '<g transform="rotate(' + tilt + ' 60 80)">' +
+      '<ellipse cx="60" cy="108" rx="32" ry="5" fill="#3A2D24" opacity=".12"/>' +
+      '<path d="' + spikes + '" fill="#8A6247" stroke="#5A3E2C" stroke-width="2" stroke-linejoin="round"/>' +
+      '<path d="M22 78 C22 52 44 36 66 36 C90 36 104 56 104 78 C104 98 88 106 64 106 C40 106 22 98 22 78Z" fill="#A9795A" stroke="#5A3E2C" stroke-width="2.5"/>' +
+      // face patch
+      '<path d="M30 82 C30 64 42 56 56 56 C72 56 82 66 82 82 C82 96 70 104 56 104 C42 104 30 96 30 82Z" fill="#F4DFC4" stroke="#5A3E2C" stroke-width="2"/>' +
+      '<ellipse cx="26" cy="84" rx="5" ry="4" fill="#3A2D24"/>' + // nose
+      '<ellipse cx="74" cy="52" rx="7" ry="6" fill="#F4DFC4" stroke="#5A3E2C" stroke-width="2"/>' + // ear
+      '<path d="M48 104 v4 M66 104 v4" stroke="#5A3E2C" stroke-width="4" stroke-linecap="round"/>' +
+      cheeks(40, 70, 90, '#E58F7A') + eyes(state, 44, 64, 78, '#3A2D24') + mouth(state, 50, 92, '#3A2D24') +
+      '</g>';
+    if (state === 'happy') s += sparkles('#C8862A');
+    if (state === 'sleepy') s += zzz('#6B5A4D');
+    return wrap(s, 'Pıtır ' + label(state));
+  }
+
+  function label(state) { return state === 'happy' ? '(mutlu)' : state === 'sleepy' ? '(uykulu)' : '(sakin)'; }
+
+  var MASCOT_FN = { orman: filiz, gece: pamuk, kagit: pitir };
+  var mascotName = { orman: 'Filiz', gece: 'Pamuk', kagit: 'Pıtır' };
+  function mascot(theme, state) {
+    var fn = MASCOT_FN[theme] || filiz;
+    return fn(state === 'happy' || state === 'sleepy' ? state : 'idle');
+  }
+  var mascots = {};
+  Object.keys(MASCOT_FN).forEach(function (t) {
+    mascots[t] = { idle: mascot(t, 'idle'), happy: mascot(t, 'happy'), sleepy: mascot(t, 'sleepy') };
+  });
+
+  // ---------------- backgrounds (decorative, low-contrast, aria-hidden) ----------------
+  var BG = {
+    orman:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">' +
+      '<defs><linearGradient id="kOsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBE6C8"/><stop offset=".5" stop-color="#F6EEDC"/><stop offset="1" stop-color="#F3F0E6"/></linearGradient></defs>' +
+      '<rect width="400" height="800" fill="url(#kOsky)"/>' +
+      '<circle cx="290" cy="170" r="70" fill="#FCD9A0" opacity=".55"/><circle cx="290" cy="170" r="44" fill="#FBCB80" opacity=".5"/>' +
+      '<path d="M0 560 C80 510 150 520 220 545 C290 570 340 540 400 520 V800 H0Z" fill="#DCE6D3"/>' +
+      '<path d="M0 620 C70 590 140 600 210 625 C280 650 340 620 400 600 V800 H0Z" fill="#CBDCC4"/>' +
+      '<g fill="#B6CDB0"><path d="M60 600 l18 -60 18 60z"/><path d="M84 610 l14 -46 14 46z"/><path d="M320 585 l20 -66 20 66z"/></g>' +
+      '<path d="M0 700 C90 670 170 690 250 705 C320 718 360 700 400 690 V800 H0Z" fill="#BCD2B5"/>' +
+      '</svg>',
+    gece:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">' +
+      '<defs><linearGradient id="kGsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0A1422"/><stop offset=".6" stop-color="#0F1B2D"/><stop offset="1" stop-color="#11263E"/></linearGradient>' +
+      '<radialGradient id="kGmoon" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#EAF0F8" stop-opacity=".9"/><stop offset=".55" stop-color="#EAF0F8" stop-opacity=".85"/><stop offset=".56" stop-color="#86CBF5" stop-opacity=".18"/><stop offset="1" stop-color="#86CBF5" stop-opacity="0"/></radialGradient></defs>' +
+      '<rect width="400" height="800" fill="url(#kGsky)"/>' +
+      '<circle cx="300" cy="130" r="70" fill="url(#kGmoon)"/>' +
+      '<circle cx="318" cy="116" r="30" fill="#0F1B2D" opacity=".25"/>' +
+      '<g fill="#EAF0F8" class="k-twinkle">' +
+      '<circle cx="40" cy="60" r="1.5"/><circle cx="120" cy="110" r="1.2"/><circle cx="200" cy="50" r="1.8"/><circle cx="80" cy="200" r="1.1"/>' +
+      '<circle cx="230" cy="230" r="1.4"/><circle cx="360" cy="260" r="1.2"/><circle cx="160" cy="300" r="1"/><circle cx="30" cy="340" r="1.3"/></g>' +
+      '<path d="M0 600 C60 585 110 615 170 600 C230 585 280 615 340 600 C370 593 390 596 400 600 V800 H0Z" fill="#14304A"/>' +
+      '<path d="M0 650 C70 635 120 665 190 650 C250 637 300 665 360 650 C380 646 395 647 400 650 V800 H0Z" fill="#183A57"/>' +
+      '<path d="M0 710 C60 698 130 722 200 710 C270 698 330 722 400 710 V800 H0Z" fill="#1B4464"/>' +
+      '<g stroke="#86CBF5" stroke-width="2" stroke-linecap="round" opacity=".35"><path d="M270 628 h40"/><path d="M282 640 h22"/><path d="M276 676 h30"/></g>' +
+      '</svg>',
+    kagit:
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">' +
+      '<defs><pattern id="kKdots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1" fill="#A84A33" opacity=".07"/></pattern>' +
+      '<filter id="kKgrain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .23  0 0 0 0 .18  0 0 0 0 .14  0 0 0 .06 0"/></filter></defs>' +
+      '<rect width="400" height="800" fill="#F8F1E4"/><rect width="400" height="800" fill="url(#kKdots)"/>' +
+      '<rect width="400" height="800" filter="url(#kKgrain)"/>' +
+      // soft blobs
+      '<path d="M-20 90 C40 40 120 60 140 110 C160 160 80 190 30 170 C-10 155 -40 130 -20 90Z" fill="#F1DCC9" opacity=".7"/>' +
+      '<path d="M300 620 C350 590 420 610 420 670 C420 730 350 740 320 715 C290 690 270 645 300 620Z" fill="#E8D9BE" opacity=".8"/>' +
+      // tiny plant in a pot (bottom-left)
+      '<g transform="translate(40 690)"><path d="M10 40 h40 l-5 30 h-30z" fill="#C9805A"/><path d="M30 40 C30 20 20 10 8 8 C10 22 20 34 30 40Z" fill="#7FA37E"/><path d="M30 40 C30 18 42 6 54 4 C52 20 42 34 30 40Z" fill="#94B691"/></g>' +
+      // washi-tape strip
+      '<rect x="250" y="40" width="110" height="22" rx="3" transform="rotate(8 305 51)" fill="#E9B9A6" opacity=".55"/>' +
+      '</svg>'
+  };
+  function background(theme) { return BG[theme] || BG.orman; }
+
+  // ---------------- icons (24x24, stroke, currentColor) ----------------
+  var I = {
+    play:     '<path d="M8 5.5v13a1 1 0 0 0 1.5.86l10-6.5a1 1 0 0 0 0-1.72l-10-6.5A1 1 0 0 0 8 5.5Z" fill="currentColor" stroke="none"/>',
+    pause:    '<rect x="6.5" y="5" width="4" height="14" rx="1.5" fill="currentColor" stroke="none"/><rect x="13.5" y="5" width="4" height="14" rx="1.5" fill="currentColor" stroke="none"/>',
+    home:     '<path d="M4 11 12 4l8 7"/><path d="M6 10v9a1 1 0 0 0 1 1h3.5v-5h3v5H17a1 1 0 0 0 1-1v-9"/>',
+    settings: '<path d="M4 7h9"/><path d="M17 7h3"/><circle cx="15" cy="7" r="2"/><path d="M4 17h3"/><path d="M11 17h9"/><circle cx="9" cy="17" r="2"/><path d="M4 12h5"/><path d="M13 12h7"/><circle cx="11" cy="12" r="2"/>',
+    timer:    '<circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2"/><path d="M9.5 2.5h5"/><path d="M19 6.5l1.2-1.2"/>',
+    breathe:  '<path d="M3 9h11a3 3 0 1 0-3-3"/><path d="M3 14h15a3 3 0 1 1-3 3"/><path d="M3 19h6"/>',
+    stats:    '<path d="M4 20h16"/><rect x="5.5" y="12" width="3" height="6" rx="1"/><rect x="10.5" y="8" width="3" height="10" rx="1"/><rect x="15.5" y="4.5" width="3" height="13.5" rx="1"/>',
+    star:     '<path d="m12 3.5 2.6 5.3 5.8.85-4.2 4.1 1 5.8L12 16.8l-5.2 2.75 1-5.8-4.2-4.1 5.8-.85Z" stroke-linejoin="round"/>',
+    flame:    '<path d="M12 21c-3.9 0-6.5-2.6-6.5-6.2 0-3.4 2.4-5.4 3.6-8.3.3 1.9 1.3 3 2.4 3.6C11.6 7 13 4.6 15 3c-.2 2.6.8 4.4 2 6 1 1.4 1.5 3 1.5 4.8 0 4.1-2.6 7.2-6.5 7.2Z" stroke-linejoin="round"/><path d="M12 21c-1.7 0-2.8-1.2-2.8-2.8 0-1.6 1.2-2.4 1.8-3.8.9 1 2.2 1.3 2.9 2.4.4.6.6 1.1.6 1.6 0 1.5-1 2.6-2.5 2.6Z" stroke-linejoin="round"/>',
+    soundOn:  '<path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5Z" stroke-linejoin="round"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/>',
+    soundOff: '<path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5Z" stroke-linejoin="round"/><path d="m16 10 4 4"/><path d="m20 10-4 4"/>',
+    check:    '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+    close:    '<path d="m6.5 6.5 11 11"/><path d="m17.5 6.5-11 11"/>',
+    info:     '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5"/><circle cx="12" cy="7.8" r="1.1" fill="currentColor" stroke="none"/>',
+    heart:    '<path d="M12 19.5s-7.5-4.4-7.5-10A4.2 4.2 0 0 1 12 7a4.2 4.2 0 0 1 7.5 2.5c0 5.6-7.5 10-7.5 10Z" stroke-linejoin="round"/>',
+    // extras useful in the app
+    back:     '<path d="M15 5l-7 7 7 7"/>',
+    replay:   '<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v4h4"/>',
+    leaf:     '<path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14Z" stroke-linejoin="round"/><path d="M5 19 13 11"/>',
+    moon:     '<path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5Z" stroke-linejoin="round"/>',
+    target:   '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/>'
+  };
+  // Turkish accessible labels
+  var LABEL = {
+    play: 'Başlat', pause: 'Duraklat', home: 'Ana sayfa', settings: 'Ayarlar', timer: 'Odak zamanlayıcısı',
+    breathe: 'Nefes', stats: 'İlerleme', star: 'Yıldız', flame: 'Seri', soundOn: 'Ses açık', soundOff: 'Ses kapalı',
+    check: 'Tamam', close: 'Kapat', info: 'Bilgi', heart: 'Kalp', back: 'Geri', replay: 'Tekrar', leaf: 'Yaprak',
+    moon: 'Ay', target: 'Hedef'
+  };
+
+  function icon(name, opts) {
+    opts = opts || {};
+    var size = opts.size || 24, sw = opts.stroke || 2;
+    var body = I[name] || I.info;
+    var a11y = opts.label === false ? 'aria-hidden="true" focusable="false"'
+      : 'role="img" aria-label="' + (opts.label || LABEL[name] || name) + '"';
+    return '<svg xmlns="http://www.w3.org/2000/svg" class="k-icon" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + sw + '" stroke-linecap="round" stroke-linejoin="round" ' + a11y + '>' + body + '</svg>';
+  }
+
+  global.KArt = {
+    mascot: mascot, mascots: mascots, mascotName: mascotName,
+    background: background, backgrounds: BG,
+    icon: icon, icons: I, iconLabels: LABEL, iconNames: Object.keys(I)
+  };
+})(typeof window !== 'undefined' ? window : this);
+
+</script>
+<script>
+/* KONSANTRASYON v1 – app.js (spec: 03_design/spec.md). Plain ES2017, no network. */
+(function () {
+'use strict';
+
+// Orhun: edit the dedication text here (shown once on the home screen).
+const DEDICATION = 'Bunu senin için yaptım. Keyifle kullan, aklına ne gelirse bana yaz. — Orhun';
+
+// ---------------------------------------------------------------- strings (spec §10)
+const T = {
+  'app.name': 'KONSANTRASYON',
+  'home.morning': 'Günaydın', 'home.day': 'İyi günler', 'home.evening': 'İyi akşamlar', 'home.night': 'İyi geceler',
+  'home.sub': 'Bugün kendine birkaç dakika ayırmak ister misin?',
+  'home.dedication': DEDICATION,
+  'home.dedicationOk': 'Teşekkürler',
+  'home.welcomeBack': 'Tekrar hoş geldin. Kaldığın yerden değil, olduğun yerden başlayalım.',
+  'home.weekChip': 'Bu hafta {n} gün',
+  'home.focus': 'Odaklan', 'home.focusSub': 'Zamanlayıcıyla çalış, molanı unutma',
+  'home.games': 'Oyunlar', 'home.gamesSub': '1–3 dakikalık ısınmalar',
+  'home.breathe': 'Nefes', 'home.breatheSub': '1–3 dakika sakinleş',
+  'home.progress': 'İlerleme', 'home.progressSub': 'Bu hafta neler yaptın',
+  'home.timerBanner': 'Odak devam ediyor · {t}',
+  'home.timerBannerPaused': 'Odak duraklatıldı · {t}',
+  'link.feedback': 'Geri bildirim gönder', 'link.about': 'Bu uygulama nedir?',
+  'nav.back': 'Geri', 'nav.settings': 'Ayarlar', 'nav.home': 'Ana sayfa',
+  'games.title': 'Oyunlar',
+  'games.note': 'Bu oyunlar kısa ısınmalar. Keyif aldığın kadar oyna; puanlar sadece senin için.',
+  'game.level': 'Seviye', 'lvl.0': 'Kolay', 'lvl.1': 'Orta', 'lvl.2': 'Zor',
+  'game.start': 'Başla', 'game.ready': 'Hazır…', 'game.pause': 'Durakladı', 'game.resume': 'Devam et', 'game.quit': 'Bitir',
+  'game.again': 'Tekrar', 'game.toGames': 'Oyunlar',
+  'game.duration': 'Yaklaşık {n} dk',
+  'lvl.suggestUp': 'Bu seviye sana kolay geldi gibi. İstersen bir üst seviyeyi dene.',
+  'lvl.suggestDown': 'Bu seviye biraz zorladı gibi. İstersen bir alt seviyeyle devam edebilirsin.',
+  'lvl.btnUp': 'Bir üst seviye', 'lvl.btnDown': 'Bir alt seviye',
+  'res.best': 'Önceki en iyin: {v}',
+  'res.firstTime': 'Bu seviyede ilk oyunun. Bundan sonra kendinle kıyaslayabilirsin.',
+  'res.newBest': 'Yeni kişisel rekorun!',
+  'res.whyRt': ' · daha hızlı tepki', 'res.whyHits': ' · daha çok eşleşme',
+  'res.thanks': 'Güzel bir tur oldu.',
+  'res.thanksLow': 'Tur tamam. Bir sonrakinde kendi hızında.',
+  'yakala.name': 'Yakala', 'yakala.desc': 'Daireye dokun, kareye dokunma.',
+  'yakala.rules': 'Ekranda tek tek şekiller belirecek. **Daire** görünce ekrana dokun (bilgisayarda boşluk tuşu). **Kare** görünce bekle, dokunma. Acele etme, ritmini bul.',
+  'yakala.oops': 'Sorun değil, devam',
+  'yakala.acc': 'Doğruluk',
+  'yakala.rt': 'Ortalama tepki: {v} sn',
+  'yakala.detail': 'Kaçan daire: {m} · Dokunulan kare: {f}',
+  'hatirla.name': 'Hatırla', 'hatirla.desc': 'Bir önceki resmi aklında tut.', 'hatirla.desc2': 'İki önceki resmi aklında tut.',
+  'hatirla.rules1': 'Resimler tek tek gelecek. Gelen resim **bir öncekiyle aynıysa** “Aynı”ya dokun (bilgisayarda boşluk tuşu). Değilse bir şey yapma.',
+  'hatirla.rules2': 'Resimler tek tek gelecek. Gelen resim **iki önceki resimle aynıysa** “Aynı”ya dokun (bilgisayarda boşluk tuşu). Değilse bir şey yapma.',
+  'hatirla.same': 'Aynı', 'hatirla.oops': 'Sorun değil, devam', 'hatirla.missed': 'Az önceki eşleşiyordu',
+  'hatirla.detail': 'Yakalanan eşleşme: {h} / {t}',
+  'hatirla.acc': 'Doğru cevap oranı (tüm resimler)',
+  'zaman.name': 'Zaman Hissi', 'zaman.desc': 'Saate bakmadan süreyi tahmin et.',
+  'zaman.rules': 'Sana bir süre söyleyeceğim. “Başlat”a dokun, saymadan içinden hisset ve süre dolduğunu düşündüğünde “Şimdi!”ye dokun. 5 tur.',
+  'zaman.target': '{n} saniye', 'zaman.go': 'Başlat', 'zaman.now': 'Şimdi!', 'zaman.waiting': 'Hisset…',
+  'zaman.result': 'Hedef {t} sn · Senin tahminin {e} sn · {d}',
+  'zaman.diff': '{d} sn {w}',
+  'zaman.early': 'erken', 'zaman.late': 'geç', 'zaman.spotOn': 'Neredeyse tam isabet!',
+  'zaman.dev': '%{v} sapma', 'zaman.detail': 'Erken: {e} · Geç: {l}',
+  'timer.title': 'Odaklan',
+  'timer.p15': '15 dk odak / 5 dk mola', 'timer.p25': '25 dk odak / 5 dk mola',
+  'timer.starter': 'Sadece 2 dakika', 'timer.starterSub': 'Başlamak en zoru. Sadece 2 dakika dene, sonra karar ver.',
+  'timer.stepLabel': 'İlk küçük adımın ne? (isteğe bağlı)', 'timer.stepPh': 'Örn. belgeyi açıp başlığı yazmak',
+  'timer.stepShow': 'İlk adım: {s}',
+  'timer.start': 'Başla', 'timer.pause': 'Duraklat', 'timer.resume': 'Devam et', 'timer.stop': 'Bitir',
+  'timer.focusLabel': 'Odak', 'timer.breakLabel': 'Mola',
+  'timer.focusDone': 'Odak süren bitti. Şimdi kısa bir mola zamanı.',
+  'timer.startBreak': '5 dk mola başlat', 'timer.skipBreak': 'Molayı atla',
+  'timer.breakDone': 'Mola bitti. Hazırsan bir tur daha?',
+  'timer.again': 'Bir tur daha', 'timer.enough': 'Bugünlük bu kadar',
+  'timer.roundToday': 'Bugün {n}. tur',
+  'timer.starterDone': '2 dakika oldu! Devam etmek ister misin?',
+  'timer.cont15': '15 dk devam', 'timer.cont25': '25 dk devam', 'timer.leave': 'Burada bırak',
+  'timer.starterKept': 'Başladın, bu da sayılır.',
+  'timer.stopConfirm': 'Bu turu bitirmek istiyor musun? Geçen süre yine kaydedilir.',
+  'timer.stopYes': 'Evet, bitir', 'timer.stopNo': 'Vazgeç',
+  'timer.endedWhileAway': 'Süre sen yokken doldu.',
+  'timer.doneTitle': 'Süre doldu — KONSANTRASYON',
+  'timer.lockNote': 'Ekran kilitlense de süre doğru işler; bitiş sesi ise ekranı açtığında çalar.',
+  'break.move': 'Kalk, biraz gerin ve omuzlarını gevşet.',
+  'break.water': 'Bir bardak su iç.',
+  'break.walk': 'Mümkünse kısa bir yürüyüşe çık ya da pencereden uzağa bak.',
+  'break.breathe': '1 dakika nefes egzersizi yap.',
+  'break.breatheBtn': 'Nefese git',
+  'noise.title': 'Arka plan sesi', 'noise.off': 'Kapalı', 'noise.pink': 'Pembe gürültü', 'noise.brown': 'Kahverengi gürültü',
+  'noise.hint': 'Bazılarına iyi gelir, bazılarına gelmez. Dene ve gör; işine yaramazsa kapat.',
+  'noise.volume': 'Ses düzeyi', 'music.title': 'Sakin müzik',
+  'sound.silentHint': 'Ses gelmiyorsa cihazının sesini kontrol et.',
+  'sound.silentHintIOS': 'Ses gelmiyorsa cihazının sesini kontrol et (iPhone\'da sessiz mod düğmesi).',
+  'br.title': 'Nefes', 'br.len': 'Süre', 'br.len1': '1 dk', 'br.len2': '2 dk', 'br.len3': '3 dk',
+  'br.sound': 'Nefes sesi', 'br.start': 'Başla', 'br.in': 'Nefes al', 'br.out': 'Nefes ver',
+  'br.notice': 'Aklın dağılırsa sorun değil. Fark et ve nazikçe nefesine dön.',
+  'br.done': 'Tamamlandı. Kendine bu zamanı ayırdığın için teşekkürler.',
+  'br.again': 'Bir kez daha', 'br.paused': 'Ara verildi',
+  'prog.title': 'İlerleme', 'prog.week': 'Bu hafta: {n} gün', 'prog.weekMin': 'Bu hafta {n} dakika',
+  'prog.total': 'Toplam', 'prog.totalDays': 'Kullandığın gün: {n}', 'prog.totalMin': 'Toplam süre: {n} dk',
+  'prog.counts': 'Oyun: {g} · Odak: {f} · Nefes: {b}',
+  'prog.bests': 'Kişisel en iyilerin',
+  'prog.emptyBests': 'Henüz oyun oynamadın. İstediğin zaman bir tane dene.',
+  'prog.recent': 'Son oturumlar', 'prog.emptyRecent': 'Burada son yaptıkların görünecek.',
+  'prog.note': 'Puanlar oynadıkça artar; bu çok doğal. Bunlar oyunun nasıl geçtiğini gösterir, seni ölçmez.',
+  'prog.device': 'İlerlemen bu cihazda tutulur; telefon ve bilgisayar ayrı sayılır.',
+  'prog.days': 'Pzt,Sal,Çar,Per,Cum,Cmt,Paz',
+  'set.title': 'Ayarlar', 'set.look': 'Görünüm',
+  'set.theme.auto': 'Otomatik (sistemin açık/koyu ayarına göre)',
+  'set.theme.orman': 'Orman Şafağı', 'set.theme.gece': 'Gece Okyanusu', 'set.theme.kagit': 'Sıcak Kağıt',
+  'set.motion': 'Hareketi azalt', 'set.motion.auto': 'Sisteme göre', 'set.motion.reduce': 'Açık',
+  'set.sound': 'Ses', 'set.sounds': 'Sesler', 'set.sfx': 'Efekt sesi',
+  'set.reminder': 'Hatırlatma',
+  'set.reminderTip': 'Uygulama sana bildirim gönderemiyor. İstersen iPhone\'daki Hatırlatıcılar uygulamasında kendine günlük bir hatırlatma kurabilirsin; örneğin “Biraz KONSANTRASYON”.',
+  'set.data': 'Verilerin',
+  'set.dataNote': 'Her şey sadece bu cihazda saklanır, hiçbir yere gönderilmez. iPhone ve bilgisayardaki ilerlemen ayrı tutulur.',
+  'set.reset': 'Verilerimi sıfırla',
+  'set.resetConfirm': 'Tüm ilerlemen ve ayarların bu cihazdan silinecek. Emin misin?',
+  'set.resetYes': 'Evet, sıfırla', 'set.resetNo': 'Vazgeç',
+  'set.version': 'Sürüm 1.0',
+  'fb.title': 'Geri bildirim gönder',
+  'fb.intro': 'Orhun\'a yaz: neyi sevdin, ne zorladı, ne eklensin? Her cümlen işe yarar.',
+  'fb.mood': 'Bugün uygulama sana nasıl geldi?',
+  'fb.mood0': 'Zorlayıcı', 'fb.mood1': 'Pek değil', 'fb.mood2': 'Fena değil', 'fb.mood3': 'Güzel', 'fb.mood4': 'Çok güzel',
+  'fb.liked': 'Neyi sevdin?', 'fb.hard': 'Ne zor geldi ya da canını sıktı?', 'fb.other': 'Eklemek istediğin başka bir şey var mı?',
+  'fb.includeUsage': 'Kullanım özetimi ekle (bu hafta kaç gün, kaç dakika, hangi oyunlar)',
+  'fb.preview': 'Gönderilecek metin', 'fb.send': 'Gönder', 'fb.copyBtn': 'Metni kopyala',
+  'fb.shareCancelled': 'Paylaşım kapandı, taslağın duruyor. İstersen “Metni kopyala” ile kopyalayabilirsin.',
+  'fb.thanks': 'Teşekkürler! Orhun okuyunca çok sevinecek.',
+  'fb.copied': 'Metin kopyalandı. Orhun\'a istediğin yerden yapıştırıp gönderebilirsin.',
+  'fb.copyManual': 'Metni seçtim; kopyalayıp Orhun\'a gönderebilirsin.',
+  'fb.txt.head': 'KONSANTRASYON – geri bildirim', 'fb.txt.date': 'Tarih:', 'fb.txt.mood': 'Ruh hâli:',
+  'fb.txt.liked': 'Sevdiğim:', 'fb.txt.hard': 'Zorlandığım:', 'fb.txt.other': 'Eklemek istediğim:',
+  'fb.txt.usage': 'Kullanım (bu cihaz):', 'fb.txt.version': 'Sürüm:',
+  'fb.txt.usageFmt': 'bu hafta {d} gün, {m} dk', 'fb.txt.games': 'oynanan oyunlar: {g}',
+  'about.title': 'Bu uygulama nedir?',
+  'about.p1': 'Selam, bunu senin için yaptım. İçinde kısa oyunlar, bir odak zamanlayıcısı, molalar ve nefes egzersizi var. Amacım, odaklanmayı senin için biraz daha keyifli hâle getirmekti.',
+  'about.p2': 'Oyunları ısınma gibi düşün. Okuduğum araştırmalar, bu tür oyunlarda puanın pratikle arttığını ama bunun tek başına günlük hayattaki odaklanmayı değiştirmediğini söylüyor. O yüzden puanlar sadece senin için; kimseyle yarışmıyorsun.',
+  'about.p3': 'Gün içinde asıl işe yarayan şeyler genelde daha basit: işe küçük bir adımla başlamak, süreyi görünür kılmak, ara ara mola vermek, biraz hareket etmek ve nefes almak. Zamanlayıcıyı ve nefes bölümünü bunun için koydum.',
+  'about.p4': 'Arka plan seslerini de ekledim; bazılarına iyi geliyor, bazılarına gelmiyor. Denemek tamamen sana kalmış.',
+  'about.p5': 'Bu bir tedavi ya da test değil; hiçbir şeyi ölçmez, teşhis koymaz ve bir uzmanın yerini tutmaz. Sadece yanında küçük bir yardımcın olsun istedim.',
+  'about.p6': 'Verilerin sadece bu cihazda kalıyor; ben bile göremiyorum. İnternet de gerekmiyor.',
+  'about.p7': 'Neyi sevdin, neyi sevmedin, ne eklensin istersin; hepsini “Geri bildirim gönder” kısmından bana yaz, birlikte geliştirelim. — Orhun',
+  'sys.noStorage': 'Bu tarayıcı ilerlemeni kaydedemiyor (özel sekme olabilir). Uygulama yine çalışır, ama kapatınca kayıtlar silinir.',
+  'unit.min': 'dk', 'sys.close': 'Kapat'
+};
+function t(key, vars) {
+  let s = T[key];
+  if (s == null) return key;
+  if (vars) for (const k in vars) s = s.split('{' + k + '}').join(String(vars[k]));
+  return s;
+}
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function rich(key, vars) { return esc(t(key, vars)).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); }
+function icon(n, o) { return KArt.icon(n, o); }
+
+// ---------------------------------------------------------------- storage (spec §9)
+const KEY = 'konsantrasyon.v1';
+function defaults() {
+  return {
+    v: 1,
+    settings: { theme: 'auto', motion: 'auto', breathSound: true, dedicationSeen: false },
+    levels: { yakala: 0, hatirla: 0, zaman: 0 },
+    timerPreset: '25',
+    sessions: [], best: {}, timer: null, feedbackDraft: null, lastSeen: null
+  };
+}
+function isObj(o) { return !!o && typeof o === 'object' && !Array.isArray(o); }
+function merge(base, src) {
+  for (const k in src) {
+    if (isObj(base[k]) && isObj(src[k])) merge(base[k], src[k]); else if (!isObj(base[k])) base[k] = src[k];
+  }
+  return base;
+}
+let readOnly = false, storageWarned = false, noSave = false;
+function load() {
+  let raw = null;
+  try { raw = JSON.parse(localStorage.getItem(KEY)); } catch (e) { raw = null; }
+  if (!isObj(raw) || typeof raw.v !== 'number' || raw.v < 1) return defaults();
+  if (raw.v > 1) readOnly = true; // future file: use in memory, never overwrite
+  const d = merge(defaults(), raw);
+  if (!Array.isArray(d.sessions)) d.sessions = [];
+  if (!isObj(d.best)) d.best = {};
+  return d;
+}
+function save() {
+  if (readOnly || noSave) return;
+  if (data.sessions.length > 500) data.sessions.splice(0, data.sessions.length - 500);
+  try { localStorage.setItem(KEY, JSON.stringify(data)); }
+  catch (e) { if (!storageWarned) { storageWarned = true; showSys(); } }
+}
+let saveTimer = null;
+function saveSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(() => { saveTimer = null; save(); }, 400); }
+function showSys() {
+  const el = document.getElementById('sys');
+  el.innerHTML = '<p>' + esc(t('sys.noStorage')) + '</p><button class="iconbtn" data-act="sysClose" aria-label="' + esc(t('sys.close')) + '">' + icon('close', { label: false }) + '</button>';
+  el.hidden = false;
+}
+function logSession(s) {
+  data.sessions.push(Object.assign({ t: Date.now(), id: null, level: null }, s));
+  save();
+}
+// sound.js keeps its own volumes in ksound.v1; we only read them to show the sliders.
+function soundPrefs() { try { return JSON.parse(localStorage.getItem('ksound.v1') || '{}') || {}; } catch (e) { return {}; } }
+
+const data = load();
+
+// ---------------------------------------------------------------- dates / formatting
+function pad(n) { return (n < 10 ? '0' : '') + n; }
+function dayKey(ts) { const d = new Date(ts); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+function weekStart(now) { const d = new Date(now); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return d.getTime(); }
+function fmtDate(ts) { const d = new Date(ts); return pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + '.' + d.getFullYear(); }
+function fmtDT(ts) { const d = new Date(ts); return fmtDate(ts) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+function fmtShortDT(ts) { const d = new Date(ts); return pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+function dec(x, n) { return x.toFixed(n).replace('.', ','); }
+function mmss(ms) { const s = Math.max(0, Math.ceil(ms / 1000)); return Math.floor(s / 60) + ':' + pad(s % 60); }
+function mins(sec) { return Math.round(sec / 60); }
+function weekStats() {
+  const ws = weekStart(Date.now()), days = new Set(); let sec = 0;
+  data.sessions.forEach(s => { if (s.t >= ws) { days.add(dayKey(s.t)); sec += s.sec || 0; } });
+  return { days, sec };
+}
+
+// ---------------------------------------------------------------- theme & motion
+const html = document.documentElement;
+const mqDark = window.matchMedia('(prefers-color-scheme: dark)');
+const mqRM = window.matchMedia('(prefers-reduced-motion: reduce)');
+function curTheme() { const s = data.settings.theme; return s === 'auto' ? (mqDark.matches ? 'gece' : 'orman') : s; }
+function reducedMotion() { return data.settings.motion === 'reduce' || mqRM.matches; }
+function applyLook() {
+  const th = curTheme(), changed = html.getAttribute('data-theme') !== th || !document.getElementById('bgart').firstChild;
+  html.setAttribute('data-theme', th);
+  if (reducedMotion()) html.setAttribute('data-motion', 'reduce'); else html.removeAttribute('data-motion');
+  if (changed) {
+    document.getElementById('bgart').innerHTML = KArt.background(th);
+    document.querySelectorAll('.mascot').forEach(m => { m.innerHTML = KArt.mascot(th, m.getAttribute('data-state')); });
+    if (musicOn) KSound.startAmbient(th);
+  }
+}
+function onMQ(mq, fn) { if (mq.addEventListener) mq.addEventListener('change', fn); else mq.addListener(fn); }
+onMQ(mqDark, applyLook);
+onMQ(mqRM, applyLook);
+function mascot(state, cls) { return '<div class="mascot ' + (cls || '') + '" data-state="' + state + '">' + KArt.mascot(curTheme(), state) + '</div>'; }
+
+// ---------------------------------------------------------------- sound unlock (iOS: only inside a gesture)
+// Listeners stay on: iOS suspends/interrupts the context after lock or a call; the next tap resumes it.
+function unlock() { const c = KSound.context; if (!c || c.state !== 'running') KSound.init(); }
+['pointerdown', 'touchend', 'click', 'keydown'].forEach(ev => document.addEventListener(ev, unlock, true));
+
+// noise / music runtime state (not persisted, spec §3.3)
+let noiseType = 'off', musicOn = false, hiddenAt = 0, hideStopTimer = null;
+function timerRunning() { return !!(data.timer && data.timer.endAt != null); } // spec §3.3 (v1.1): no hidden auto-stop while a timer runs
+function stopBackground() {
+  KSound.stopNoise(); KSound.stopAmbient(); noiseType = 'off'; musicOn = false;
+}
+
+// ---------------------------------------------------------------- router
+const ROUTES = ['home', 'games', 'game/yakala', 'game/hatirla', 'game/zaman', 'timer', 'breathe', 'progress', 'settings', 'feedback', 'about'];
+let route = null;
+const sections = {};
+document.querySelectorAll('section[data-screen]').forEach(s => { sections[s.getAttribute('data-screen')] = s; });
+function scr() { return route && route.indexOf('game/') === 0 ? 'game' : route; }
+function go(h) { location.hash = '#' + h; }
+function onRoute() {
+  let r = location.hash.slice(1);
+  if (ROUTES.indexOf(r) < 0) { r = 'home'; if (location.hash !== '#home') history.replaceState(null, '', '#home'); }
+  leave();
+  route = r;
+  document.body.dataset.route = r;
+  const s = scr();
+  for (const k in sections) if (k !== s) { sections[k].hidden = true; sections[k].innerHTML = ''; }
+  sections[s].hidden = false;
+  RENDER[s]();
+  window.scrollTo(0, 0);
+}
+function leave() {
+  if (G) gAbort();
+  if (B) brLeave();
+  gView = 'intro'; tConfirm = false; resetConfirm = false; fbStatus = '';
+}
+function render() { RENDER[scr()](); }
+function topbar(titleKey, back) {
+  return '<header class="bar"><a class="iconbtn" href="#' + (back || 'home') + '" aria-label="' + esc(t('nav.back')) + '">' + icon('back', { label: false }) +
+    '</a><h1 class="k-display">' + esc(t(titleKey)) + '</h1></header>';
+}
+function backTarget() { return scr() === 'game' ? 'games' : 'home'; }
+
+// ---------------------------------------------------------------- home
+let welcomeBack = false;
+(function () {
+  const today = dayKey(Date.now());
+  if (data.lastSeen) {
+    const days = Math.round((new Date(today + 'T00:00:00') - new Date(data.lastSeen + 'T00:00:00')) / 864e5);
+    welcomeBack = days >= 3;
+  }
+  data.lastSeen = today;
+})();
+function greetKey() { const h = new Date().getHours(); return h >= 5 && h < 11 ? 'home.morning' : h >= 11 && h < 17 ? 'home.day' : h >= 17 && h < 22 ? 'home.evening' : 'home.night'; }
+function renderHome() {
+  const ws = weekStats(), tm = data.timer;
+  let h = '<header class="bar"><span class="appname k-display">' + esc(t('app.name')) + '</span><a class="iconbtn" href="#settings" aria-label="' + esc(t('nav.settings')) + '">' + icon('settings', { label: false }) + '</a></header>';
+  if (!data.settings.dedicationSeen) {
+    h += '<div class="k-card ded"><p>' + esc(t('home.dedication')) + '</p><div class="row end"><button class="k-btn" data-act="dedOk">' + esc(t('home.dedicationOk')) + '</button></div></div>';
+  }
+  h += '<div class="homehead">' + mascot('idle', 'sm') + '<div class="greet"><h1 class="k-display">' + esc(t(greetKey())) + '</h1><p class="lead">' + esc(t('home.sub')) + '</p></div></div>';
+  if (welcomeBack) h += '<p class="k-card">' + esc(t('home.welcomeBack')) + '</p>';
+  if (tm && tm.phase !== 'break') h += '<a class="banner" href="#timer" data-live="banner">' + icon('timer', { label: false }) + '<span data-live="bannerText">' + esc(t(tm.endAt == null ? 'home.timerBannerPaused' : 'home.timerBanner', { t: mmss(tLeft(tm)) })) + '</span></a>';
+  if (ws.days.size) h += '<div><span class="k-chip k-chip--ok">' + esc(t('home.weekChip', { n: ws.days.size })) + '</span></div>';
+  h += '<div class="tiles">' +
+    tile('timer', 'timer', 'home.focus', 'home.focusSub') + tile('games', 'play', 'home.games', 'home.gamesSub') +
+    tile('breathe', 'breathe', 'home.breathe', 'home.breatheSub') + tile('progress', 'stats', 'home.progress', 'home.progressSub') + '</div>';
+  h += '<nav class="links"><a class="tlink" href="#feedback">' + esc(t('link.feedback')) + '</a><a class="tlink" href="#about">' + esc(t('link.about')) + '</a></nav>';
+  sections.home.innerHTML = h;
+}
+function tile(r, ic, k, sub) { return '<a class="k-card tile" href="#' + r + '">' + icon(ic, { label: false }) + '<b>' + esc(t(k)) + '</b><span>' + esc(t(sub)) + '</span></a>'; }
+
+// ---------------------------------------------------------------- games list
+const DUR = { yakala: [2, 1.5, 1], hatirla: [1.5, 1.5, 1], zaman: [1, 2, 3] };
+function renderGames() {
+  let h = topbar('games.title');
+  ['yakala', 'hatirla', 'zaman'].forEach(id => {
+    const lv = data.levels[id] || 0, d = DUR[id][lv];
+    h += '<a class="k-card gamecard" href="#game/' + id + '"><b>' + esc(t(id + '.name')) + '</b><span>' + esc(t(id === 'hatirla' && lv > 0 ? 'hatirla.desc2' : id + '.desc')) + '</span>' +
+      '<span class="hint">' + esc(t('game.duration', { n: d % 1 ? dec(d, 1) : d })) + ' · ' + esc(t('game.level')) + ': ' + esc(t('lvl.' + lv)) + '</span></a>';
+  });
+  h += '<p class="hint">' + esc(t('games.note')) + '</p>';
+  sections.games.innerHTML = h;
+}
+
+// ---------------------------------------------------------------- game engines (spec §2)
+const YK = [{ on: 1000, blank: 800, nogo: 0.2 }, { on: 800, blank: 700, nogo: 0.25 }, { on: 650, blank: 550, nogo: 0.3 }];
+const HT = [{ n: 1, on: 1500, blank: 1000 }, { n: 2, on: 1500, blank: 1000 }, { n: 2, on: 1100, blank: 800 }];
+const ZT = [[5, 8, 10], [10, 15, 20], [20, 30, 45]];
+const HICONS = ['star', 'heart', 'leaf', 'moon', 'target'];
+function rnd(n) { return Math.floor(Math.random() * n); }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); const x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
+function range(a, b) { const r = []; for (let i = a; i < b; i++) r.push(i); return r; }
+
+// Yakala sequence: true = go (circle). Exactly round(60*rate) no-go, first 3 go, never 3 no-go in a row.
+function genYakala(lv) {
+  const N = 60, k = Math.round(N * YK[lv].nogo);
+  for (;;) {
+    const a = new Array(N).fill(true);
+    shuffle(range(3, N)).slice(0, k).forEach(i => { a[i] = false; });
+    let run = 0, ok = true;
+    for (let i = 0; i < N && ok; i++) { run = a[i] ? 0 : run + 1; if (run > 2) ok = false; }
+    if (ok) return a;
+  }
+}
+// Hatırla: n lead-ins (distinct, unscored) + 30 scored, 9 matches; non-matches differ from the item n back.
+function genHatirla(lv) {
+  const n = HT[lv].n, items = [], match = [];
+  const mset = new Set(shuffle(range(0, 30)).slice(0, 9));
+  for (let i = 0; i < n; i++) { let x; do { x = rnd(5); } while (items.indexOf(x) >= 0); items.push(x); match.push(false); }
+  for (let j = 0; j < 30; j++) {
+    const prev = items[items.length - n];
+    if (mset.has(j)) { items.push(prev); match.push(true); }
+    else { let x; do { x = rnd(5); } while (x === prev); items.push(x); match.push(false); }
+  }
+  return { n, items, match };
+}
+function devPct(ests, targets) {
+  let s = 0; for (let i = 0; i < ests.length; i++) s += Math.abs(ests[i] - targets[i]) / targets[i];
+  return Math.round(s / ests.length * 100);
+}
+
+let G = null;          // running game
+const suggest = {};    // id -> 'up' | 'down' (runtime only)
+function later(fn, ms) { const h = setTimeout(() => { if (G) G.timers.delete(h); fn(); }, ms); G.timers.add(h); return h; }
+function gClear() { if (G) { G.timers.forEach(clearTimeout); G.timers.clear(); } }
+function gPlayMs() { return G.playMs + (G.segStart != null ? performance.now() - G.segStart : 0); }
+function $(sel) { return sections.game.querySelector(sel); }
+function setProg(i, n) { const p = $('.progress i'); if (p) p.style.width = (100 * i / n) + '%'; }
+function stage(html) { const a = $('.area'); if (a) a.innerHTML = html; }
+function chip(cls, key, ms) {
+  const f = $('.feedback'); if (!f) return;
+  f.innerHTML = '<span class="k-chip ' + cls + '">' + esc(t(key)) + '</span>';
+  const g = G; later(() => { if (G === g) f.innerHTML = ''; }, ms);
+}
+function gReady(fn) {
+  const a = $('.area'); if (a) a.setAttribute('data-kind', '');
+  stage('<p class="ready">' + esc(t('game.ready')) + '</p>');
+  later(fn, 1500);
+}
+
+const ENG = {};
+ENG.yakala = function (lv) {
+  const c = YK[lv], seq = genYakala(lv), N = 60;
+  let i = 0, st = null, hits = 0, cw = 0, miss = 0, fa = 0, run = 0;
+  const rts = [];
+  function shape() { return $('.stim'); }
+  function streakCheck() { if (run > 0 && run % 10 === 0) KSound.streak(Math.min(run / 10, 5)); }
+  function trial() {
+    if (i >= N) {
+      const rt = rts.length ? Math.round(rts.reduce((a, b) => a + b, 0) / rts.length) : null;
+      return gFinish({ acc: Math.round((hits + cw) / N * 100), rt, miss, fa });
+    }
+    stage('<div class="stim ' + (seq[i] ? 'k-target' : 'k-distractor') + '"></div>');
+    $('.area').setAttribute('data-kind', seq[i] ? 'go' : 'nogo');
+    st = { go: seq[i], onset: performance.now(), resp: false };
+    setProg(i, N);
+    later(() => { const s = shape(); if (s) s.classList.add('off'); $('.area').setAttribute('data-kind', ''); }, c.on);
+    later(endTrial, c.on + c.blank);
+  }
+  function endTrial() {
+    if (!st.resp) { if (st.go) { miss++; run = 0; } else { cw++; run++; streakCheck(); } }
+    st = null; i++; trial();
+  }
+  return {
+    begin: trial, resume: trial,
+    discard() { if (st && st.resp) { if (st.go) { hits--; rts.pop(); } else fa--; } st = null; }, // trial is repeated
+    progress() { return [i, N]; },
+    respond() {
+      if (!st || st.resp) return;
+      st.resp = true;
+      if (st.go) {
+        hits++; rts.push(performance.now() - st.onset); KSound.tap(); run++; streakCheck();
+        const s = shape(); if (s) { s.classList.add('hit'); later(() => s.classList.remove('hit'), 120); }
+      } else { fa++; run = 0; chip('k-chip--warn', 'yakala.oops', 600); }
+    }
+  };
+};
+ENG.hatirla = function (lv) {
+  const c = HT[lv], g = genHatirla(lv), N = g.items.length;
+  let i = 0, st = null, hits = 0, cr = 0, fa = 0;
+  function trial() {
+    if (i >= N) return gFinish({ acc: Math.round((hits + cr) / 30 * 100), hits, fa });
+    const card = $('.hcard');
+    card.classList.remove('ok');
+    card.innerHTML = icon(HICONS[g.items[i]], { size: 96, label: false });
+    const a = $('.area');
+    a.setAttribute('data-kind', i < g.n ? 'lead' : g.match[i] ? 'match' : 'other');
+    st = { match: g.match[i], lead: i < g.n, resp: false };
+    setProg(i, N);
+    later(() => { const k = $('.hcard'); if (k) k.innerHTML = ''; }, c.on);
+    later(endTrial, c.on + c.blank);
+  }
+  function endTrial() {
+    if (!st.lead && !st.resp) { if (st.match) chip('', 'hatirla.missed', 600); else cr++; }
+    st = null; i++; trial();
+  }
+  function frame() {
+    stage('<div class="hcard" aria-live="off"></div><button class="k-btn same" data-resp="1">' + esc(t('hatirla.same')) + '</button>');
+    $('.area').setAttribute('aria-label', t(c.n === 1 ? 'hatirla.rules1' : 'hatirla.rules2').replace(/\*\*/g, ''));
+  }
+  return {
+    begin() { frame(); trial(); }, resume() { frame(); trial(); },
+    discard() { if (st && st.resp && !st.lead) { if (st.match) hits--; else fa--; } st = null; }, // trial is repeated
+    progress() { return [i, N]; },
+    respond(e) {
+      if (e && e.type === 'pointerdown' && !(e.target.closest && e.target.closest('[data-resp]'))) return;
+      if (!st || st.resp) return;
+      st.resp = true;
+      if (st.lead) return;
+      if (st.match) {
+        hits++; KSound.correct();
+        const k = $('.hcard'); if (k) { k.classList.add('ok'); later(() => { const k2 = $('.hcard'); if (k2) k2.classList.remove('ok'); }, 300); }
+      } else { fa++; chip('k-chip--warn', 'hatirla.oops', 600); }
+    }
+  };
+};
+ENG.zaman = function (lv) {
+  const targets = range(0, 5).map(() => ZT[lv][rnd(3)]), ests = [];
+  let r = 0, sub = null, t0 = 0, early = 0, late = 0;
+  function showTarget() {
+    sub = 'target'; setProg(r, 5);
+    $('.area').setAttribute('data-kind', 'target');
+    stage('<p class="zt">' + esc(t('zaman.target', { n: targets[r] })) + '</p><button class="k-btn zbtn" data-resp="1">' + esc(t('zaman.go')) + '</button>');
+  }
+  function goWait() {
+    sub = 'wait'; t0 = performance.now();
+    $('.area').setAttribute('data-kind', 'wait');
+    stage(mascot('idle') + '<p class="zt">' + esc(t('zaman.waiting')) + '</p><button class="k-btn zbtn" data-resp="1">' + esc(t('zaman.now')) + '</button>');
+  }
+  function stop() {
+    const e = (performance.now() - t0) / 1000, tg = targets[r], d = e - tg;
+    ests.push(e);
+    if (e < tg) early++; else if (e > tg) late++;
+    if (Math.abs(d) <= tg * 0.1) KSound.correct(); else KSound.tap();
+    const diff = Math.abs(d) <= tg * 0.05 ? t('zaman.spotOn') : t('zaman.diff', { d: dec(Math.abs(d), 1), w: t(d < 0 ? 'zaman.early' : 'zaman.late') });
+    sub = 'result';
+    $('.area').setAttribute('data-kind', 'result');
+    stage('<p class="zt" style="font-size:var(--fs-l)" data-zres>' + esc(t('zaman.result', { t: tg, e: dec(e, 1), d: diff })) + '</p>');
+    later(next, 2500);
+  }
+  function next() {
+    if (sub !== 'result') return;
+    gClear(); r++;
+    if (r >= 5) return gFinish({ dev: devPct(ests, targets.slice(0, 5)), early, late });
+    showTarget();
+  }
+  return {
+    begin: showTarget,
+    resume() { if (sub === 'result') { r++; if (r >= 5) return gFinish({ dev: devPct(ests, targets), early, late }); } showTarget(); },
+    discard() { /* a 'wait' round is simply repeated on resume */ },
+    progress() { return [r, 5]; },
+    respond(e) {
+      if (e && e.type === 'pointerdown' && sub !== 'result' && !(e.target.closest && e.target.closest('[data-resp]'))) return;
+      if (sub === 'target') goWait(); else if (sub === 'wait') stop(); else if (sub === 'result') next();
+    }
+  };
+};
+
+function better(id, s, p) {
+  if (id === 'yakala') return s.acc > p.acc || (s.acc === p.acc && s.rt != null && (p.rt == null || s.rt < p.rt));
+  if (id === 'hatirla') return s.acc > p.acc || (s.acc === p.acc && s.hits > p.hits);
+  return s.dev < p.dev;
+}
+function bestText(id, b) { return id === 'zaman' ? t('zaman.dev', { v: b.dev }) : '%' + b.acc; }
+
+let gView = 'intro', gResult = null;
+function gameId() { return route.split('/')[1]; }
+function renderGame() {
+  gView = 'intro';
+  const id = gameId(), lv = data.levels[id] || 0;
+  let ex = '';
+  if (id === 'yakala') ex = '<div class="k-target" role="img" aria-label="' + esc(KArt.iconLabels.target) + '"></div><div class="k-distractor" aria-hidden="true"></div>';
+  else if (id === 'hatirla') ex = icon('star', { size: 48, label: false }) + icon('star', { size: 48, label: false });
+  else ex = icon('timer', { size: 48, label: false });
+  const rules = id === 'hatirla' ? (lv === 0 ? 'hatirla.rules1' : 'hatirla.rules2') : id + '.rules';
+  let h = topbar(id + '.name', 'games');
+  h += '<div class="k-card"><p>' + rich(rules) + '</p><div class="ex">' + ex + '</div></div>';
+  h += '<div class="field"><span class="lbl" id="lvlbl">' + esc(t('game.level')) + '</span><div class="seg" role="radiogroup" aria-labelledby="lvlbl">' +
+    [0, 1, 2].map(v => '<button role="radio" aria-checked="' + (v === lv) + '" data-act="lvl" data-v="' + v + '">' + esc(t('lvl.' + v)) + '</button>').join('') + '</div></div>';
+  h += suggestHtml(id, lv);
+  h += '<button class="k-btn wide" data-act="gStart">' + esc(t('game.start')) + '</button>';
+  sections.game.innerHTML = h;
+}
+function suggestHtml(id, lv) {
+  const s = suggest[id] && suggest[id].lv === lv ? suggest[id].d : null;
+  if (s === 'up' && lv < 2) return '<div class="k-card stack"><p>' + esc(t('lvl.suggestUp')) + '</p><button class="k-btn k-btn--soft" data-act="lvlSug" data-v="' + (lv + 1) + '">' + esc(t('lvl.btnUp')) + '</button></div>';
+  if (s === 'down' && lv > 0) return '<div class="k-card stack"><p>' + esc(t('lvl.suggestDown')) + '</p><button class="k-btn k-btn--soft" data-act="lvlSug" data-v="' + (lv - 1) + '">' + esc(t('lvl.btnDown')) + '</button></div>';
+  return '';
+}
+function gStart() {
+  const id = gameId(), lv = data.levels[id] || 0;
+  G = { id, lv, timers: new Set(), playMs: 0, segStart: performance.now(), paused: false, eng: null };
+  gView = 'play';
+  sections.game.innerHTML =
+    '<div class="play"><div class="row"><div class="progress" aria-hidden="true"><i></i></div>' +
+    '<button class="iconbtn" data-act="gQuit" aria-label="' + esc(t('game.quit')) + '">' + icon('close', { label: false }) + '</button></div>' +
+    '<div class="k-card area" data-kind=""></div><div class="feedback" aria-live="polite"></div></div>';
+  const area = $('.area');
+  area.addEventListener('pointerdown', e => { if (G && !G.paused && G.eng) { if (G.id === 'yakala' || e.target.closest('[data-resp]') || G.id === 'zaman') { e.preventDefault(); G.eng.respond(e); } } });
+  G.eng = ENG[id](lv);
+  gReady(() => G.eng.begin());
+}
+function gPause() {
+  if (!G || G.paused) return;
+  gClear();
+  G.paused = true; G.playMs = gPlayMs(); G.segStart = null;
+  G.eng.discard();
+  const ov = document.createElement('div');
+  ov.className = 'overlay';
+  ov.innerHTML = '<p class="ready">' + esc(t('game.pause')) + '</p><button class="k-btn" data-act="gResume">' + esc(t('game.resume')) + '</button><button class="k-btn k-btn--ghost" data-act="gQuit">' + esc(t('game.quit')) + '</button>';
+  sections.game.querySelector('.play').appendChild(ov);
+  ov.querySelector('button').focus();
+}
+function gResume() {
+  if (!G || !G.paused) return;
+  G.paused = false; G.segStart = performance.now();
+  const ov = sections.game.querySelector('.overlay'); if (ov) ov.remove();
+  const f = $('.feedback'); if (f) f.innerHTML = '';
+  gReady(() => G.eng.resume());
+}
+function gAbort() {
+  gClear();
+  const sec = Math.round(gPlayMs() / 1000);
+  if (gPlayMs() >= 5000) logSession({ kind: 'game', id: G.id, level: G.lv, sec, done: false });
+  G = null; gView = 'intro';
+}
+function gQuit() { if (!G) return; gAbort(); renderGame(); }
+function gFinish(score) {
+  gClear();
+  const id = G.id, lv = G.lv, sec = Math.round(gPlayMs() / 1000), key = id + '.' + lv, prev = data.best[key] || null;
+  const isBest = !prev || better(id, score, prev);
+  if (isBest) {
+    const b = { t: Date.now() };
+    if (id === 'yakala') { b.acc = score.acc; b.rt = score.rt; } else if (id === 'hatirla') { b.acc = score.acc; b.hits = score.hits; } else b.dev = score.dev;
+    data.best[key] = b;
+  }
+  logSession({ kind: 'game', id, level: lv, sec, done: true, score });
+  const d = id === 'zaman' ? (score.dev <= 8 ? 'up' : score.dev >= 30 ? 'down' : null) : (score.acc >= 90 ? 'up' : score.acc < 60 ? 'down' : null);
+  suggest[id] = d ? { d, lv } : null;
+  if (prev && isBest) KSound.levelUp(); else KSound.correct();
+  gResult = { id, lv, score, prev, newBest: !!(prev && isBest) };
+  G = null; gView = 'result';
+  renderResult();
+}
+function renderResult() {
+  const r = gResult, s = r.score, id = r.id;
+  let main, sub = '';
+  if (id === 'yakala') {
+    main = '<p class="hint">' + esc(t('yakala.acc')) + '</p><p class="k-num res-main">%' + s.acc + '</p>';
+    if (s.rt != null) sub += '<p>' + esc(t('yakala.rt', { v: dec(s.rt / 1000, 2) })) + '</p>';
+    sub += '<p>' + esc(t('yakala.detail', { m: s.miss, f: s.fa })) + '</p>';
+  } else if (id === 'hatirla') {
+    main = '<p class="hint">' + esc(t('hatirla.acc')) + '</p><p class="k-num res-main">%' + s.acc + '</p>';
+    sub += '<p>' + esc(t('hatirla.detail', { h: s.hits, t: 9 })) + '</p>';
+  } else {
+    main = '<p class="k-num res-main">' + esc(t('zaman.dev', { v: s.dev })) + '</p>';
+    sub += '<p>' + esc(t('zaman.detail', { e: s.early, l: s.late })) + '</p>';
+  }
+  const good = id === 'zaman' ? s.dev <= 30 : s.acc >= 60;
+  const why = r.newBest && id !== 'zaman' && s.acc === r.prev.acc ? t(id === 'yakala' ? 'res.whyRt' : 'res.whyHits') : '';
+  const prevRt = r.prev && id === 'yakala' && r.prev.rt != null ? ' · ' + dec(r.prev.rt / 1000, 2) + ' sn' : '';
+  let h = topbar(id + '.name', 'games');
+  h += '<div class="k-card center stack" data-result>' + mascot('happy') + '<p>' + esc(t(good ? 'res.thanks' : 'res.thanksLow')) + '</p>' + main + sub +
+    (r.newBest ? '<div><span class="k-chip k-chip--ok">' + icon('star', { label: false }) + esc(t('res.newBest') + why) + '</span></div>' : '') +
+    '<p class="hint">' + esc(r.prev ? t('res.best', { v: bestText(id, r.prev) + prevRt }) : t('res.firstTime')) + '</p></div>';
+  h += suggestHtml(id, r.lv);
+  h += '<div class="stack"><button class="k-btn wide" data-act="gAgain">' + esc(t('game.again')) + '</button>' +
+    '<a class="k-btn k-btn--ghost wide" href="#games">' + esc(t('game.toGames')) + '</a>' +
+    '<a class="k-btn k-btn--ghost wide" href="#home">' + esc(t('nav.home')) + '</a></div>';
+  sections.game.innerHTML = h;
+}
+
+// ---------------------------------------------------------------- focus timer (spec §3)
+const PRESET_MS = { '15': 15 * 6e4, '25': 25 * 6e4, '2': 2 * 6e4 }, BREAK_MS = 5 * 6e4;
+const BREAKS = ['break.move', 'break.water', 'break.walk', 'break.breathe'];
+let tDoneHidden = false, tView = null, tAway = false, tKept = false, tConfirm = false, tTip = null, tPrev = null, tStep = '';
+function tLeft(tm) { return tm.endAt != null ? tm.endAt - Date.now() : tm.pausedLeftMs; }
+function tStart(phase, preset, step) {
+  const total = phase === 'break' ? BREAK_MS : PRESET_MS[preset];
+  data.timer = { phase, preset, totalMs: total, endAt: Date.now() + total, pausedLeftMs: null, step: step || '', startedAt: Date.now() };
+  tView = null; tAway = false; tKept = false; tConfirm = false;
+  save();
+}
+function tPause() { const tm = data.timer; if (!tm || tm.endAt == null) return; tm.pausedLeftMs = Math.max(0, tm.endAt - Date.now()); tm.endAt = null; save(); }
+function tResume() { const tm = data.timer; if (!tm || tm.endAt != null) return; tm.endAt = Date.now() + tm.pausedLeftMs; tm.pausedLeftMs = null; save(); }
+function tCheck() {
+  const tm = data.timer;
+  if (!tm || tm.endAt == null) return;
+  const ago = Date.now() - tm.endAt;
+  if (ago < 0) return;
+  if (tm.phase !== 'break') logSession({ t: tm.endAt, kind: 'focus', sec: Math.round(tm.totalMs / 1000), done: true });
+  tView = ago > 3600000 ? null : tm.phase === 'focus' ? 'focusDone' : tm.phase === 'break' ? 'breakDone' : 'starterDone'; // P0-6: no stale break offer
+  tPrev = { preset: tm.preset, step: tm.step };
+  if (tView === 'focusDone') tTip = BREAKS[rnd(4)];
+  data.timer = null; tConfirm = false; save();
+  if (ago < 60000) KSound.timerEnd(); // a long-stale end stays silent
+  tAway = ago > 2000;
+  if (document.hidden) tDoneHidden = true;
+  if (route === 'timer' || route === 'home') render();
+}
+function tStopNow() {
+  const tm = data.timer; if (!tm) return;
+  if (tm.phase !== 'break') {
+    const sec = Math.round((tm.totalMs - Math.max(0, tLeft(tm))) / 1000);
+    if (sec > 0) logSession({ kind: 'focus', sec, done: false });
+  }
+  data.timer = null; tView = null; tConfirm = false; save();
+}
+function roundsToday() { const k = dayKey(Date.now()); return data.sessions.filter(s => s.kind === 'focus' && s.done && dayKey(s.t) === k).length; }
+function renderTimer() {
+  let h = topbar('timer.title');
+  const tm = data.timer;
+  if (tm) {
+    const brk = tm.phase === 'break', left = tLeft(tm), paused = tm.endAt == null;
+    h += '<div class="k-card center stack">' +
+      '<p class="lbl">' + esc(t(brk ? 'timer.breakLabel' : 'timer.focusLabel')) + '</p>' +
+      '<div class="ringwrap"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bgc" cx="60" cy="60" r="54" fill="none" stroke-width="8"/>' +
+      '<circle class="fgc" data-live="ring" cx="60" cy="60" r="54" fill="none" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="' + ringOff(tm) + '"/></svg>' +
+      '<div class="mid"><span class="k-num tnum" data-live="time" role="timer">' + mmss(left) + '</span></div></div>' +
+      (tm.step && !brk ? '<p>' + esc(t('timer.stepShow', { s: tm.step })) + '</p>' : '') +
+      mascot(brk ? 'sleepy' : 'idle', 'sm');
+    if (tConfirm) {
+      h += '<p>' + esc(t('timer.stopConfirm')) + '</p><div class="row" style="justify-content:center"><button class="k-btn" data-act="tStopYes">' + esc(t('timer.stopYes')) + '</button><button class="k-btn k-btn--ghost" data-act="tStopNo">' + esc(t('timer.stopNo')) + '</button></div>';
+    } else {
+      h += '<div class="row" style="justify-content:center"><button class="k-btn" data-act="tPause">' + esc(t(paused ? 'timer.resume' : 'timer.pause')) + '</button><button class="k-btn k-btn--ghost" data-act="tStop">' + esc(t('timer.stop')) + '</button></div>';
+    }
+    h += '<p class="small">' + esc(t('timer.lockNote')) + '</p></div>';
+  } else if (tView) {
+    h += '<div class="k-card center stack" data-tview="' + tView + '">' + mascot('happy', 'sm') + (tAway ? '<p class="hint" data-away>' + esc(t('timer.endedWhileAway')) + '</p>' : '');
+    if (tView === 'focusDone') {
+      h += '<p class="big k-display">' + esc(t('timer.focusDone')) + '</p></div>';
+      h += '<div class="k-card stack" data-tip="' + tTip + '"><p>' + esc(t(tTip)) + '</p>' + (tTip === 'break.breathe' ? '<button class="k-btn k-btn--soft" data-act="toBreathe1">' + esc(t('break.breatheBtn')) + '</button>' : '') + '</div>';
+      h += '<div class="stack"><button class="k-btn wide" data-act="tBreak">' + esc(t('timer.startBreak')) + '</button><button class="k-btn k-btn--ghost wide" data-act="tIdle">' + esc(t('timer.skipBreak')) + '</button></div>';
+    } else if (tView === 'breakDone') {
+      h += '<p class="big k-display">' + esc(t('timer.breakDone')) + '</p><p class="hint">' + esc(t('timer.roundToday', { n: roundsToday() })) + '</p></div>';
+      h += '<div class="stack"><button class="k-btn wide" data-act="tAgain">' + esc(t('timer.again')) + '</button><button class="k-btn k-btn--ghost wide" data-act="tIdle">' + esc(t('timer.enough')) + '</button></div>';
+    } else {
+      h += '<p class="big k-display">' + esc(t('timer.starterDone')) + '</p></div>';
+      h += '<div class="stack"><button class="k-btn wide" data-act="tCont" data-v="15">' + esc(t('timer.cont15')) + '</button><button class="k-btn wide" data-act="tCont" data-v="25">' + esc(t('timer.cont25')) + '</button><button class="k-btn k-btn--ghost wide" data-act="tLeave">' + esc(t('timer.leave')) + '</button></div>';
+    }
+  } else {
+    const p = data.timerPreset;
+    if (tKept) h += '<p class="k-card">' + esc(t('timer.starterKept')) + '</p>';
+    h += '<div class="stack" role="radiogroup" aria-label="' + esc(t('timer.title')) + '">' +
+      choice('15', p, t('timer.p15')) + choice('25', p, t('timer.p25')) + choice('2', p, t('timer.starter'), t('timer.starterSub')) + '</div>';
+    h += '<div class="field"><label class="lbl" for="step">' + esc(t('timer.stepLabel')) + '</label><input id="step" class="inp" maxlength="80" data-inp="step" placeholder="' + esc(t('timer.stepPh')) + '" value="' + esc(tStep) + '"></div>';
+    h += '<button class="k-btn wide" data-act="tGo"' + (p ? '' : ' disabled') + '>' + esc(t('timer.start')) + '</button>';
+    h += '<div class="k-card">' + soundBlock() + '</div>';
+  }
+  sections.timer.innerHTML = h;
+}
+function choice(v, cur, title, sub) {
+  return '<button class="choice" role="radio" aria-checked="' + (v === cur) + '" data-act="preset" data-v="' + v + '"><span><b>' + esc(title) + '</b>' + (sub ? '<span class="sub">' + esc(sub) + '</span>' : '') + '</span><span class="tick">' + icon('check', { label: false }) + '</span></button>';
+}
+function ringOff(tm) { return (339.29 * (1 - Math.max(0, tLeft(tm)) / tm.totalMs)).toFixed(2); }
+const IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function soundBlock() {
+  const sp = soundPrefs(), nv = typeof sp.noise === 'number' ? sp.noise : 0.35;
+  return '<div class="field"><span class="lbl" id="nlbl">' + esc(t('noise.title')) + '</span><div class="seg" role="radiogroup" aria-labelledby="nlbl">' +
+    ['off', 'pink', 'brown'].map(v => '<button role="radio" aria-checked="' + (noiseType === v) + '" data-act="noise" data-v="' + v + '">' + esc(t('noise.' + v)) + '</button>').join('') + '</div>' +
+    '<label class="hint" for="nvol">' + esc(t('noise.volume')) + '</label><input id="nvol" type="range" class="range" min="0" max="1" step="0.05" value="' + nv + '" data-inp="noiseVol">' +
+    '<p class="hint">' + esc(t('noise.hint')) + '</p>' +
+    switchBtn('music', musicOn, t('music.title')) +
+    '<p class="hint">' + esc(t(IOS ? 'sound.silentHintIOS' : 'sound.silentHint')) + '</p></div>';
+}
+function switchBtn(act, on, label) {
+  return '<button class="swrow" role="switch" aria-checked="' + !!on + '" data-act="' + act + '"><span>' + esc(label) + '</span><span class="sw"></span></button>';
+}
+
+// ---------------------------------------------------------------- breathing (spec §4)
+let brLen = 1, B = null;
+function renderBreathe() {
+  let h = topbar('br.title');
+  if (B && B.done) {
+    h += '<div class="k-card center stack">' + mascot('happy') + '<p class="big k-display">' + esc(t('br.done')) + '</p></div>' +
+      '<div class="stack"><button class="k-btn wide" data-act="brStart">' + esc(t('br.again')) + '</button><a class="k-btn k-btn--ghost wide" href="#home">' + esc(t('nav.home')) + '</a></div>';
+  } else if (B) {
+    h += '<div class="k-card center stack" style="position:relative"><div class="bcircle"><div class="fill"></div><span class="txt" data-br="txt">' + esc(t('game.ready')) + '</span><span class="cnt k-num" data-br="cnt"></span></div>' +
+      '<p class="small k-num" data-br="left">' + mmss(B.ms) + '</p><p class="hint">' + esc(t('br.notice')) + '</p></div>';
+  } else {
+    h += '<div class="k-card stack"><div class="field"><span class="lbl" id="brl">' + esc(t('br.len')) + '</span><div class="seg" role="radiogroup" aria-labelledby="brl">' +
+      [1, 2, 3].map(v => '<button role="radio" aria-checked="' + (v === brLen) + '" data-act="brLen" data-v="' + v + '">' + esc(t('br.len' + v)) + '</button>').join('') + '</div></div>' +
+      switchBtn('brSound', data.settings.breathSound && !KSound.isMuted(), t('br.sound')) + '</div>' +
+      '<button class="k-btn wide" data-act="brStart">' + esc(t('br.start')) + '</button><p class="hint">' + esc(t('br.notice')) + '</p>';
+  }
+  sections.breathe.innerHTML = h;
+}
+function brQ(k) { return sections.breathe.querySelector('[data-br="' + k + '"]'); }
+function brStart() {
+  if (B) brLeave();
+  B = { ms: brLen * 60000, startAt: null, ph: null, handle: null, paused: false, pausedEl: 0, raf: 0, ready: 0, done: false };
+  renderBreathe();
+  const c = sections.breathe.querySelector('.bcircle');
+  c.style.transition = 'none'; c.style.transform = reducedMotion() ? 'none' : 'scale(.82)';
+  if (reducedMotion()) c.querySelector('.fill').style.opacity = '.35';
+  B.ready = setTimeout(() => { B.startAt = performance.now(); brLoop(); }, 2000);
+}
+function brStopSound() { if (B && B.handle) { B.handle.stop(); B.handle = null; } }
+function brLoop() {
+  if (!B || B.paused || B.done) return;
+  const el = performance.now() - B.startAt;
+  if (el >= B.ms) return brEnd();
+  const rm = reducedMotion(), w = el % 10000, inh = w < 4000, ph = Math.floor(el / 10000) * 2 + (inh ? 0 : 1);
+  const c = sections.breathe.querySelector('.bcircle');
+  if (ph !== B.ph) {
+    B.ph = ph;
+    brStopSound();
+    if (data.settings.breathSound) B.handle = inh ? KSound.breatheIn(4) : KSound.breatheOut(6);
+    brQ('txt').textContent = t(inh ? 'br.in' : 'br.out');
+    if (!rm) { c.style.transition = 'transform ' + (inh ? 4 : 6) + 's ease-in-out'; c.style.transform = 'scale(' + (inh ? 1 : 0.82) + ')'; }
+  }
+  if (rm) {
+    c.style.transform = 'none';
+    const f = inh ? w / 4000 : (w - 4000) / 6000;
+    c.querySelector('.fill').style.opacity = (inh ? 0.35 + 0.65 * f : 1 - 0.65 * f).toFixed(3);
+    brQ('cnt').textContent = Math.ceil(((inh ? 4000 : 10000) - w) / 1000);
+  } else brQ('cnt').textContent = '';
+  brQ('left').textContent = mmss(B.ms - el);
+  B.raf = requestAnimationFrame(brLoop);
+}
+function brEnd() {
+  brStopSound(); cancelAnimationFrame(B.raf);
+  logSession({ kind: 'breathe', sec: Math.round(B.ms / 1000), done: true });
+  B.done = true; KSound.correct();
+  renderBreathe();
+}
+function brPause() {
+  if (!B || B.done || B.paused) return;
+  clearTimeout(B.ready); cancelAnimationFrame(B.raf); brStopSound();
+  B.paused = true; B.pausedEl = B.startAt != null ? performance.now() - B.startAt : 0;
+  const card = sections.breathe.querySelector('.k-card'); if (!card) return;
+  const ov = document.createElement('div');
+  ov.className = 'overlay';
+  ov.innerHTML = '<p class="ready">' + esc(t('br.paused')) + '</p><button class="k-btn" data-act="brResume">' + esc(t('game.resume')) + '</button><button class="k-btn k-btn--ghost" data-act="brQuit">' + esc(t('game.quit')) + '</button>';
+  card.appendChild(ov);
+}
+function brResume() {
+  if (!B || !B.paused) return;
+  const ov = sections.breathe.querySelector('.overlay'); if (ov) ov.remove();
+  B.paused = false; B.ph = null;
+  B.startAt = performance.now() - Math.floor(B.pausedEl / 10000) * 10000; // restart the current cycle
+  brLoop();
+}
+function brLeave() {
+  if (!B) return;
+  clearTimeout(B.ready); cancelAnimationFrame(B.raf); brStopSound();
+  if (!B.done && B.startAt != null) {
+    const el = B.paused ? B.pausedEl : performance.now() - B.startAt;
+    if (el >= 5000) logSession({ kind: 'breathe', sec: Math.round(el / 1000), done: false });
+  }
+  B = null;
+}
+
+// ---------------------------------------------------------------- progress (spec §5)
+function renderProgress() {
+  const ws = weekStats(), wStart = weekStart(Date.now()), today = dayKey(Date.now());
+  const days = t('prog.days').split(',');
+  let dots = '';
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(wStart); d.setDate(d.getDate() + i);
+    const k = dayKey(d.getTime());
+    dots += '<div><div class="dot' + (ws.days.has(k) ? ' on' : '') + (k === today ? ' today' : '') + '" data-day="' + k + '"></div>' + esc(days[i]) + '</div>';
+  }
+  const all = new Set(); let sec = 0; const cnt = { game: 0, focus: 0, breathe: 0 };
+  data.sessions.forEach(s => { all.add(dayKey(s.t)); sec += s.sec || 0; if (cnt[s.kind] != null) cnt[s.kind]++; });
+  let h = topbar('prog.title');
+  h += '<div class="k-card"><h2 class="k-display" data-week>' + esc(t('prog.week', { n: ws.days.size })) + '</h2><div class="dots">' + dots + '</div><p>' + esc(t('prog.weekMin', { n: mins(ws.sec) })) + '</p></div>';
+  h += '<div class="k-card"><h2 class="k-display">' + esc(t('prog.total')) + '</h2><p>' + esc(t('prog.totalDays', { n: all.size })) + '</p><p>' + esc(t('prog.totalMin', { n: mins(sec) })) +
+    '</p><p>' + esc(t('prog.counts', { g: cnt.game, f: cnt.focus, b: cnt.breathe })) + '</p></div>';
+  let bests = '';
+  ['yakala', 'hatirla', 'zaman'].forEach(id => [0, 1, 2].forEach(lv => {
+    const b = data.best[id + '.' + lv];
+    if (b) bests += '<li data-best="' + id + '.' + lv + '">' + esc(t(id + '.name')) + ' · ' + esc(t('lvl.' + lv)) + ' · <b>' + esc(bestText(id, b)) + '</b> · ' + fmtDate(b.t) + '</li>';
+  }));
+  h += '<div class="k-card"><h2 class="k-display">' + esc(t('prog.bests')) + '</h2>' + (bests ? '<ul class="list">' + bests + '</ul>' : '<p class="hint">' + esc(t('prog.emptyBests')) + '</p>') + '</div>';
+  const rec = data.sessions.slice(-10).reverse().map(s => '<li>' + esc(sessionLine(s)) + '</li>').join('');
+  h += '<div class="k-card"><h2 class="k-display">' + esc(t('prog.recent')) + '</h2>' + (rec ? '<ul class="list" data-recent>' + rec + '</ul>' : '<p class="hint">' + esc(t('prog.emptyRecent')) + '</p>') + '</div>';
+  h += '<p class="hint">' + esc(t('prog.note')) + '</p><p class="hint">' + esc(t('prog.device')) + '</p>';
+  sections.progress.innerHTML = h;
+}
+function sessionLine(s) {
+  const m = Math.max(1, mins(s.sec || 0)) + ' ' + t('unit.min');
+  if (s.kind === 'game') {
+    const res = s.done && s.score ? (s.id === 'zaman' ? t('zaman.dev', { v: s.score.dev }) : '%' + s.score.acc) : m;
+    return t(s.id + '.name') + ' · ' + t('lvl.' + s.level) + ' · ' + res + ' · ' + fmtShortDT(s.t);
+  }
+  return t(s.kind === 'focus' ? 'timer.focusLabel' : 'br.title') + ' · ' + m + ' · ' + fmtShortDT(s.t);
+}
+
+// ---------------------------------------------------------------- settings (spec §7)
+let resetConfirm = false;
+function renderSettings() {
+  const th = data.settings.theme, sp = soundPrefs();
+  const sfx = typeof sp.sfx === 'number' ? sp.sfx : 0.9;
+  let h = topbar('set.title');
+  h += '<div class="k-card stack"><h2 class="k-display">' + esc(t('set.look')) + '</h2><div class="stack" role="radiogroup" aria-label="' + esc(t('set.look')) + '">' +
+    ['auto', 'orman', 'gece', 'kagit'].map(v => {
+      const sw = v === 'auto' ? '<span class="swatch auto"></span>' : '<span class="swatch" data-theme="' + v + '"><i></i></span>';
+      const name = v === 'auto' ? KArt.mascotName.orman + ' / ' + KArt.mascotName.gece : KArt.mascotName[v];
+      return '<button class="choice" role="radio" aria-checked="' + (th === v) + '" data-act="theme" data-v="' + v + '">' + sw + '<span><b>' + esc(t('set.theme.' + v)) + '</b><span class="sub">' + esc(name) + '</span></span><span class="tick">' + icon('check', { label: false }) + '</span></button>';
+    }).join('') + '</div>' +
+    '<div class="field"><span class="lbl" id="mlbl">' + esc(t('set.motion')) + '</span><div class="seg" role="radiogroup" aria-labelledby="mlbl">' +
+    ['auto', 'reduce'].map(v => '<button role="radio" aria-checked="' + (data.settings.motion === v) + '" data-act="motion" data-v="' + v + '">' + esc(t('set.motion.' + v)) + '</button>').join('') + '</div></div></div>';
+  h += '<div class="k-card stack"><h2 class="k-display">' + esc(t('set.sound')) + '</h2>' + switchBtn('mute', !KSound.isMuted(), t('set.sounds')) +
+    '<label class="lbl" for="sfx">' + esc(t('set.sfx')) + '</label><input id="sfx" type="range" class="range" min="0" max="1" step="0.05" value="' + sfx + '" data-inp="sfx">' +
+    soundBlock() + '</div>';
+  h += '<div class="k-card"><h2 class="k-display">' + esc(t('set.reminder')) + '</h2><p>' + esc(t('set.reminderTip')) + '</p></div>';
+  h += '<div class="k-card stack"><h2 class="k-display">' + esc(t('set.data')) + '</h2><p>' + esc(t('set.dataNote')) + '</p>' +
+    (resetConfirm
+      ? '<p><b>' + esc(t('set.resetConfirm')) + '</b></p><div class="row"><button class="k-btn" data-act="resetYes">' + esc(t('set.resetYes')) + '</button><button class="k-btn k-btn--ghost" data-act="resetNo">' + esc(t('set.resetNo')) + '</button></div>'
+      : '<button class="k-btn k-btn--ghost" data-act="reset">' + esc(t('set.reset')) + '</button>') + '</div>';
+  h += '<nav class="links"><a class="tlink" href="#about">' + esc(t('link.about')) + '</a><a class="tlink" href="#feedback">' + esc(t('link.feedback')) + '</a><p class="small">' + esc(t('set.version')) + '</p></nav>';
+  sections.settings.innerHTML = h;
+}
+
+// ---------------------------------------------------------------- feedback (spec §8)
+const EMO = ['😣', '🙁', '😐', '🙂', '😄'];
+let fb = Object.assign({ mood: null, liked: '', hard: '', other: '', usage: false }, data.feedbackDraft || {});
+let fbStatus = '';
+function fbFilled() { return fb.mood != null || !!(fb.liked.trim() || fb.hard.trim() || fb.other.trim()); }
+function usageLine() {
+  const ws = weekStats(), since = Date.now() - 7 * 864e5, ids = [];
+  data.sessions.forEach(s => { if (s.kind === 'game' && s.t >= since && ids.indexOf(s.id) < 0) ids.push(s.id); });
+  const names = ['yakala', 'hatirla', 'zaman'].filter(id => ids.indexOf(id) >= 0).map(id => t(id + '.name'));
+  let u = t('fb.txt.usageFmt', { d: ws.days.size, m: mins(ws.sec) });
+  if (names.length) u += ' · ' + t('fb.txt.games', { g: names.join(', ') });
+  return u;
+}
+function composeFeedback() {
+  const L = [t('fb.txt.head'), t('fb.txt.date') + ' ' + fmtDT(Date.now())];
+  if (fb.mood != null) L.push(t('fb.txt.mood') + ' ' + EMO[fb.mood] + ' ' + t('fb.mood' + fb.mood));
+  if (fb.liked.trim()) L.push(t('fb.txt.liked') + ' ' + fb.liked.trim());
+  if (fb.hard.trim()) L.push(t('fb.txt.hard') + ' ' + fb.hard.trim());
+  if (fb.other.trim()) L.push(t('fb.txt.other') + ' ' + fb.other.trim());
+  if (fb.usage) L.push(t('fb.txt.usage') + ' ' + usageLine());
+  L.push(t('fb.txt.version') + ' 1.0');
+  return L.join('\n');
+}
+function renderFeedback() {
+  let h = topbar('fb.title');
+  h += '<p>' + esc(t('fb.intro')) + '</p>';
+  h += '<div class="field"><span class="lbl" id="moodl">' + esc(t('fb.mood')) + '</span><div class="moods" role="radiogroup" aria-labelledby="moodl">' +
+    EMO.map((e, i) => '<button class="mood" role="radio" aria-checked="' + (fb.mood === i) + '" aria-label="' + esc(t('fb.mood' + i)) + '" data-act="mood" data-v="' + i + '"><span aria-hidden="true">' + e + '</span><small aria-hidden="true">' + esc(t('fb.mood' + i)) + '</small></button>').join('') + '</div></div>';
+  [['liked', 500], ['hard', 500], ['other', 1000]].forEach(f => {
+    h += '<div class="field"><label class="lbl" for="fb-' + f[0] + '">' + esc(t('fb.' + f[0])) + '</label><textarea class="inp" id="fb-' + f[0] + '" maxlength="' + f[1] + '" data-inp="fb" data-f="' + f[0] + '">' + esc(fb[f[0]]) + '</textarea></div>';
+  });
+  h += '<button class="swrow cb" role="checkbox" aria-checked="' + fb.usage + '" data-act="fbUsage"><span class="box">' + icon('check', { label: false, size: 18 }) + '</span><span>' + esc(t('fb.includeUsage')) + '</span></button>';
+  h += '<div class="field"><span class="lbl">' + esc(t('fb.preview')) + '</span><pre class="preview" id="fbprev">' + esc(composeFeedback()) + '</pre></div>';
+  h += '<button class="k-btn wide" data-act="fbSend"' + (fbFilled() ? '' : ' disabled') + '>' + esc(t('fb.send')) + '</button>';
+  h += '<button class="k-btn k-btn--ghost wide" data-act="fbCopy"' + (fbFilled() ? '' : ' disabled') + '>' + esc(t('fb.copyBtn')) + '</button>';
+  h += '<p class="k-card" role="status" id="fbstatus"' + (fbStatus ? '' : ' hidden') + '>' + esc(fbStatus ? t(fbStatus) : '') + '</p>';
+  sections.feedback.innerHTML = h;
+}
+function fbUpdate() {
+  data.feedbackDraft = Object.assign({}, fb); saveSoon();
+  const p = document.getElementById('fbprev'); if (p) p.textContent = composeFeedback();
+  sections.feedback.querySelectorAll('[data-act="fbSend"],[data-act="fbCopy"]').forEach(b => { b.disabled = !fbFilled(); });
+}
+function fbDone(key) {
+  fb = { mood: null, liked: '', hard: '', other: '', usage: false };
+  data.feedbackDraft = null; save();
+  fbStatus = key; renderFeedback();
+}
+function fbStatusMsg(key) { const st = document.getElementById('fbstatus'); st.textContent = t(key); st.hidden = false; }
+function fbCopy() {
+  const text = composeFeedback();
+  const manual = () => {
+    const p = document.getElementById('fbprev'), sel = window.getSelection(), r = document.createRange();
+    r.selectNodeContents(p); sel.removeAllRanges(); sel.addRange(r);
+    fbStatusMsg('fb.copyManual');
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).then(() => fbDone('fb.copied'), manual);
+  }
+  manual();
+}
+function fbSend() {
+  const text = composeFeedback();
+  if (navigator.share) {
+    navigator.share({ text }).then(() => fbDone('fb.thanks'), e => { if (!e || e.name !== 'AbortError') fbCopy(); else fbStatusMsg('fb.shareCancelled'); });
+  } else fbCopy();
+}
+
+// ---------------------------------------------------------------- about
+function renderAbout() {
+  let h = topbar('about.title') + '<div class="k-card stack">';
+  for (let i = 1; i <= 7; i++) h += '<p>' + esc(t('about.p' + i)) + '</p>';
+  sections.about.innerHTML = h + '</div>';
+}
+
+const RENDER = { home: renderHome, games: renderGames, game: renderGame, timer: renderTimer, breathe: renderBreathe, progress: renderProgress, settings: renderSettings, feedback: renderFeedback, about: renderAbout };
+
+// ---------------------------------------------------------------- actions (event delegation)
+const ACT = {
+  sysClose() { document.getElementById('sys').hidden = true; },
+  dedOk() { data.settings.dedicationSeen = true; save(); renderHome(); },
+  lvl(el) { data.levels[gameId()] = +el.dataset.v; save(); renderGame(); },
+  lvlSug(el) { data.levels[gameId()] = +el.dataset.v; suggest[gameId()] = null; save(); gView = 'intro'; renderGame(); },
+  gStart, gQuit, gResume,
+  gAgain() { gView = 'intro'; gStart(); },
+  preset(el) { data.timerPreset = el.dataset.v; save(); renderTimer(); },
+  tGo() { const p = data.timerPreset; tStart(p === '2' ? 'starter' : 'focus', p, tStep.trim()); renderTimer(); },
+  tPause() { if (data.timer) { if (data.timer.endAt == null) tResume(); else tPause(); } renderTimer(); },
+  tStop() { tConfirm = true; renderTimer(); },
+  tStopNo() { tConfirm = false; renderTimer(); },
+  tStopYes() { tStopNow(); renderTimer(); },
+  tBreak() { tStart('break', tPrev.preset, tPrev.step); renderTimer(); },
+  tAgain() { tStart('focus', tPrev.preset, tPrev.step); renderTimer(); },
+  tCont(el) { data.timerPreset = el.dataset.v; tStart('focus', el.dataset.v, tPrev.step); renderTimer(); },
+  tLeave() { tView = null; tKept = true; renderTimer(); },
+  tIdle() { tView = null; tAway = false; renderTimer(); },
+  toBreathe1() { tView = null; brLen = 1; go('breathe'); },
+  noise(el) {
+    noiseType = el.dataset.v;
+    if (noiseType === 'off') KSound.stopNoise(); else KSound.startNoise(noiseType);
+    render();
+  },
+  music() { musicOn = !musicOn; if (musicOn) KSound.startAmbient(curTheme()); else KSound.stopAmbient(); render(); },
+  brLen(el) { brLen = +el.dataset.v; renderBreathe(); },
+  brSound() { data.settings.breathSound = !data.settings.breathSound; save(); renderBreathe(); },
+  brStart, brResume,
+  brQuit() { brLeave(); renderBreathe(); },
+  theme(el) { data.settings.theme = el.dataset.v; save(); applyLook(); renderSettings(); },
+  motion(el) { data.settings.motion = el.dataset.v; save(); applyLook(); renderSettings(); },
+  mute() { KSound.setMuted(!KSound.isMuted()); renderSettings(); },
+  reset() { resetConfirm = true; renderSettings(); },
+  resetNo() { resetConfirm = false; renderSettings(); },
+  resetYes() { noSave = true; try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ } location.reload(); },
+  mood(el) { fb.mood = +el.dataset.v; fbStatus = ''; fbUpdate(); renderFeedback(); },
+  fbUsage() { fb.usage = !fb.usage; fbUpdate(); renderFeedback(); },
+  fbSend, fbCopy
+};
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if (!el || el.disabled) return;
+  ACT[el.dataset.act](el, e);
+});
+document.addEventListener('input', e => {
+  const el = e.target, k = el.dataset && el.dataset.inp;
+  if (k === 'step') tStep = el.value;
+  else if (k === 'noiseVol') KSound.setNoiseVolume(+el.value);
+  else if (k === 'sfx') KSound.setSfxVolume(+el.value);
+  else if (k === 'fb') { fb[el.dataset.f] = el.value; fbUpdate(); }
+});
+document.addEventListener('keydown', e => {
+  const tag = (e.target.tagName || '').toLowerCase(), typing = tag === 'input' || tag === 'textarea';
+  if (scr() === 'game' && G && !G.paused) {
+    if (e.key === 'Escape') { e.preventDefault(); gPause(); return; }
+    if (e.key === ' ' || e.key === 'Enter' || (G.id === 'hatirla' && (e.key === 'j' || e.key === 'J'))) {
+      e.preventDefault(); if (!e.repeat && G.eng) G.eng.respond(e); return;
+    }
+    return;
+  }
+  if (e.key !== 'Escape' || typing) return;
+  if (scr() === 'game' && G && G.paused) return;
+  if (route === 'timer' && data.timer && data.timer.endAt != null) { tPause(); renderTimer(); return; }
+  if (route === 'breathe' && B && !B.done && !B.paused) { brPause(); return; }
+  if (route !== 'home') go(backTarget());
+});
+
+// ---------------------------------------------------------------- lifecycle
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    if (G && !G.paused) gPause();
+    if (B && !B.done) brPause();
+    if (saveTimer) save();
+    hiddenAt = Date.now();
+    clearTimeout(hideStopTimer);
+    hideStopTimer = setTimeout(() => { if (document.hidden && !timerRunning()) stopBackground(); }, 5 * 6e4);
+  } else {
+    clearTimeout(hideStopTimer);
+    if (hiddenAt && Date.now() - hiddenAt > 5 * 6e4 && (noiseType !== 'off' || musicOn) && !timerRunning()) { stopBackground(); if (route === 'timer' || route === 'settings') render(); }
+    hiddenAt = 0;
+    tDoneHidden = false;
+    tCheck();
+  }
+});
+function liveTick() {
+  tCheck();
+  const tm = data.timer;
+  if (tm) {
+    const s = mmss(tLeft(tm));
+    document.title = s + ' · ' + t(tm.phase === 'break' ? 'timer.breakLabel' : 'timer.focusLabel') + ' — ' + t('app.name');
+    if (route === 'timer') {
+      const el = sections.timer.querySelector('[data-live="time"]'); if (el) el.textContent = s;
+      const r = sections.timer.querySelector('[data-live="ring"]'); if (r) r.setAttribute('stroke-dashoffset', ringOff(tm));
+    } else if (route === 'home') {
+      const b = sections.home.querySelector('[data-live="bannerText"]'); if (b) b.textContent = t(tm.endAt == null ? 'home.timerBannerPaused' : 'home.timerBanner', { t: s });
+    }
+  } else {
+    const want = document.hidden && tDoneHidden ? t('timer.doneTitle') : t('app.name');
+    if (document.title !== want) document.title = want;
+  }
+}
+window.addEventListener('hashchange', onRoute);
+window.addEventListener('pagehide', () => { if (G) gAbort(); else if (saveTimer) save(); });
+
+applyLook();
+save();      // lastSeen; also surfaces the no-storage banner once if storage is blocked
+tCheck();    // a timer that ended while the page was closed
+onRoute();
+setInterval(liveTick, 250);
+
+// Read-only hooks for the automated tests (04_app/tests). No UI.
+window.KApp = { T, data, genYakala, genHatirla, devPct, composeFeedback, YK, HT, ZT, reducedMotion, curTheme };
+})();
+
+</script>
+</body>
+</html>
